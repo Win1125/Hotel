@@ -2,7 +2,7 @@
 
 session_start();
 
-define('APPURL', "http://localhost/hotel-booking/")
+define('APPURL', "http://localhost/Hotel/")
 
 ?>
 

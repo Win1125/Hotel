@@ -2,9 +2,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-lg-3 mb-md-0 mb-4">
-                    <h2 class="footer-heading"><a href="#" class="logo">Vacation Rental</a></h2>
+                    <h2 class="footer-heading"><a href="<?php echo APPURL; ?>" class="logo">Vacation Rental</a></h2>
                     <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                    <a href="#">Read more <span class="fa fa-chevron-right" style="font-size: 11px;"></span></a>
+                    <a href="<?php echo APPURL; ?>views/contact.php">Read more <span class="fa fa-chevron-right" style="font-size: 11px;"></span></a>
                 </div>
                 <div class="col-md-6 col-lg-3 mb-md-0 mb-4">
                     <h2 class="footer-heading">Services</h2>
