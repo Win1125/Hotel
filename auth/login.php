@@ -58,8 +58,8 @@ if (isset($_POST['submit'])) {
 							type: 'success'
 						}).then((result) => {
 							if(result.isConfirmed){
-							window.location='http://localhost/hotel-booking/';
-						   }
+								window.location='" . APPURL . "';
+						   	}
 					    });
 					</script>";
 

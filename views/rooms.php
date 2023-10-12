@@ -5,7 +5,7 @@ require_once('../config/config.php');
 
 ?>
 
-<section class="hero-wrap hero-wrap-2" style="background-image: url('<?php echo APPURL; ?>images/image_2.jpg');" data-stellar-background-ratio="0.5">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../resources/images/image_2.jpg');" data-stellar-background-ratio="0.5">
 	<div class="overlay"></div>
 	<div class="container">
 		<div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -22,7 +22,7 @@ require_once('../config/config.php');
 		<div class="row no-gutters">
 			<div class="col-lg-6">
 				<div class="room-wrap d-md-flex">
-					<a href="#" class="img" style="background-image: url(images/room-1.jpg);"></a>
+					<a href="#" class="img" style="background-image: url(../resources/images/room-1.jpg);"></a>
 					<div class="half left-arrow d-flex align-items-center">
 						<div class="text p-4 p-xl-5 text-center">
 							<p class="star mb-0"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></p>
@@ -41,7 +41,7 @@ require_once('../config/config.php');
 			</div>
 			<div class="col-lg-6">
 				<div class="room-wrap d-md-flex">
-					<a href="#" class="img" style="background-image: url(images/room-2.jpg);"></a>
+					<a href="#" class="img" style="background-image: url(../resources/images/room-2.jpg);"></a>
 					<div class="half left-arrow d-flex align-items-center">
 						<div class="text p-4 p-xl-5 text-center">
 							<p class="star mb-0"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></p>
@@ -61,7 +61,7 @@ require_once('../config/config.php');
 
 			<div class="col-lg-6">
 				<div class="room-wrap d-md-flex">
-					<a href="#" class="img order-md-last" style="background-image: url(images/room-3.jpg);"></a>
+					<a href="#" class="img order-md-last" style="background-image: url(../resources/images/room-3.jpg);"></a>
 					<div class="half right-arrow d-flex align-items-center">
 						<div class="text p-4 p-xl-5 text-center">
 							<p class="star mb-0"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></p>
@@ -80,7 +80,7 @@ require_once('../config/config.php');
 			</div>
 			<div class="col-lg-6">
 				<div class="room-wrap d-md-flex">
-					<a href="#" class="img order-md-last" style="background-image: url(images/room-4.jpg);"></a>
+					<a href="#" class="img order-md-last" style="background-image: url(../resources/images/room-4.jpg);"></a>
 					<div class="half right-arrow d-flex align-items-center">
 						<div class="text p-4 p-xl-5 text-center">
 							<p class="star mb-0"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></p>
@@ -100,7 +100,7 @@ require_once('../config/config.php');
 
 			<div class="col-lg-6">
 				<div class="room-wrap d-md-flex">
-					<a href="#" class="img" style="background-image: url(images/room-5.jpg);"></a>
+					<a href="#" class="img" style="background-image: url(../resources/images/room-5.jpg);"></a>
 					<div class="half left-arrow d-flex align-items-center">
 						<div class="text p-4 p-xl-5 text-center">
 							<p class="star mb-0"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></p>
@@ -118,7 +118,7 @@ require_once('../config/config.php');
 			</div>
 			<div class="col-lg-6">
 				<div class="room-wrap d-md-flex">
-					<a href="#" class="img" style="background-image: url(images/room-6.jpg);"></a>
+					<a href="#" class="img" style="background-image: url(../resources/images/room-6.jpg);"></a>
 					<div class="half left-arrow d-flex align-items-center">
 						<div class="text p-4 p-xl-5 text-center">
 							<p class="star mb-0"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></p>

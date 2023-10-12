@@ -5,7 +5,7 @@ require_once('../config/config.php');
 
 ?>
 
-<section class="hero-wrap hero-wrap-2" style="background-image: url('<?php echo APPURL; ?>images/image_2.jpg');" data-stellar-background-ratio="0.5">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../resources/images/image_2.jpg');" data-stellar-background-ratio="0.5">
 	<div class="overlay"></div>
 	<div class="container">
 		<div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -22,7 +22,7 @@ require_once('../config/config.php');
 		<div class="row">
 			<div class="col-md-4 d-flex services align-self-stretch px-4 ftco-animate">
 				<div class="d-block services-wrap text-center">
-					<div class="img" style="background-image: url(images/services-1.jpg);"></div>
+					<div class="img" style="background-image: url(../resources/images/services-1.jpg);"></div>
 					<div class="media-body py-4 px-3">
 						<h3 class="heading">Map Direction</h3>
 						<p>Even the all-powerful Pointing has no control about the blind texts it is an almost
@@ -33,7 +33,7 @@ require_once('../config/config.php');
 			</div>
 			<div class="col-md-4 d-flex services align-self-stretch px-4 ftco-animate">
 				<div class="d-block services-wrap text-center">
-					<div class="img" style="background-image: url(images/services-2.jpg);"></div>
+					<div class="img" style="background-image: url(../resources/images/services-2.jpg);"></div>
 					<div class="media-body py-4 px-3">
 						<h3 class="heading">Accomodation Services</h3>
 						<p>Even the all-powerful Pointing has no control about the blind texts it is an almost
@@ -44,7 +44,7 @@ require_once('../config/config.php');
 			</div>
 			<div class="col-md-4 d-flex services align-self-stretch px-4 ftco-animate">
 				<div class="d-block services-wrap text-center">
-					<div class="img" style="background-image: url(images/image_2.jpg);"></div>
+					<div class="img" style="background-image: url(../resources/images/image_2.jpg);"></div>
 					<div class="media-body py-4 px-3">
 						<h3 class="heading">Great Experience</h3>
 						<p>Even the all-powerful Pointing has no control about the blind texts it is an almost
@@ -70,7 +70,7 @@ require_once('../config/config.php');
 				<div class="carousel-testimony owl-carousel">
 					<div class="item">
 						<div class="testimony-wrap d-flex">
-							<div class="user-img" style="background-image: url(images/person_1.jpg)">
+							<div class="user-img" style="background-image: url(../resources/images/person_1.jpg)">
 							</div>
 							<div class="text pl-4">
 								<span class="quote d-flex align-items-center justify-content-center">
@@ -85,7 +85,7 @@ require_once('../config/config.php');
 					</div>
 					<div class="item">
 						<div class="testimony-wrap d-flex">
-							<div class="user-img" style="background-image: url(images/person_2.jpg)">
+							<div class="user-img" style="background-image: url(../resources/images/person_2.jpg)">
 							</div>
 							<div class="text pl-4">
 								<span class="quote d-flex align-items-center justify-content-center">
@@ -100,7 +100,7 @@ require_once('../config/config.php');
 					</div>
 					<div class="item">
 						<div class="testimony-wrap d-flex">
-							<div class="user-img" style="background-image: url(images/person_3.jpg)">
+							<div class="user-img" style="background-image: url(../resources/images/person_3.jpg)">
 							</div>
 							<div class="text pl-4">
 								<span class="quote d-flex align-items-center justify-content-center">
@@ -115,7 +115,7 @@ require_once('../config/config.php');
 					</div>
 					<div class="item">
 						<div class="testimony-wrap d-flex">
-							<div class="user-img" style="background-image: url(images/person_4.jpg)">
+							<div class="user-img" style="background-image: url(../resources/images/person_4.jpg)">
 							</div>
 							<div class="text pl-4">
 								<span class="quote d-flex align-items-center justify-content-center">
@@ -130,7 +130,7 @@ require_once('../config/config.php');
 					</div>
 					<div class="item">
 						<div class="testimony-wrap d-flex">
-							<div class="user-img" style="background-image: url(images/person_1.jpg)">
+							<div class="user-img" style="background-image: url(../resources/images/person_1.jpg)">
 							</div>
 							<div class="text pl-4">
 								<span class="quote d-flex align-items-center justify-content-center">
@@ -153,7 +153,7 @@ require_once('../config/config.php');
 	<div class="container">
 		<div class="row no-gutters">
 			<div class="col-md-6 wrap-about">
-				<div class="img img-2 mb-4" style="background-image: url(images/image_2.jpg);">
+				<div class="img img-2 mb-4" style="background-image: url(../resources/images/image_2.jpg);">
 				</div>
 				<h2>The most recommended vacation rental</h2>
 				<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
