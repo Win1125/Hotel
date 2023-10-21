@@ -49,7 +49,7 @@ define('APPURL', "http://localhost/Hotel/")
                     <li class="nav-item active"><a href="<?php echo APPURL; ?>" class="nav-link">Home</a></li>
                     <li class="nav-item"><a href="<?php echo APPURL; ?>views/about.php" class="nav-link">About</a></li>
                     <li class="nav-item"><a href="<?php echo APPURL; ?>views/services.php" class="nav-link">Services</a></li>
-                    <li class="nav-item"><a href="<?php echo APPURL; ?>views/rooms.php" class="nav-link">Apartment Room</a></li>
+                    <li class="nav-item"><a href="<?php echo APPURL; ?>views/allrooms.php" class="nav-link">Apartment Room</a></li>
                     <li class="nav-item"><a href="<?php echo APPURL; ?>views/contact.php" class="nav-link">Contact</a></li>
                     <?php if(!isset($_SESSION['username'])) : ?>
                     <li class="nav-item"><a href="<?php echo APPURL; ?>auth/login.php" class="nav-link">Login</a></li>
@@ -57,12 +57,11 @@ define('APPURL', "http://localhost/Hotel/")
                     <?php else : ?>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <?php echo $_SESSION['username']?>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="<?php echo APPURL; ?>views/user-bookings.php?id=<?php echo $_SESSION['id_user']; ?>">Your Bookings</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="<?php echo APPURL; ?>auth/logout.php">Logout</a></li>
                         </ul>
