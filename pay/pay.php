@@ -3,6 +3,7 @@
 
 require_once('../includes/header.php');
 require_once('../config/config.php');
+require_once('../auth/validate.php');
 
 ?>
 
@@ -14,7 +15,7 @@ require_once('../config/config.php');
             <div class="col-md-7 ftco-animate">
                 <h1 class="mb-4">Pay Page For Your Room: <?php echo $_SESSION['username']; ?></h1>
 
-                <div class="container">
+                <div class="container col-md-7 ftco-animate">
                     <!-- Replace "test" with your own sandbox Business account app client ID -->
                     <script src="https://www.paypal.com/sdk/js?client-id=AekeuaIg0EkwixS1M0DU3KiCcqX-DxrZOPEmVp_vihPcxtAYlv7L_FNeHRcxnLWRV3MXdpp1XdBfiMWL&currency=USD"></script>
                     <!-- Set up a container element for the button -->

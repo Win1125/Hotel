@@ -92,6 +92,8 @@ if(isset($_GET['id'])){
 			}
 		}
 	}
+}else{
+	echo "<script>window.location.href='".APPURL."404.php'</script>";
 }
 
 ?>

@@ -3,6 +3,16 @@
 require_once('../includes/header.php');
 require_once('../config/config.php');
 
+
+if(isset($_GET['id'])){
+
+	$id = $_GET['id'];
+
+	$getRooms = $conn -> query("SELECT * FROM rooms WHERE id_hotel = '$id'");
+
+}
+
+
 ?>
 
 <section class="hero-wrap hero-wrap-2" style="background-image: url('../resources/images/image_2.jpg');" data-stellar-background-ratio="0.5">
@@ -39,6 +49,7 @@ require_once('../config/config.php');
 					</div>
 				</div>
 			</div>
+
 			<div class="col-lg-6">
 				<div class="room-wrap d-md-flex">
 					<a href="#" class="img" style="background-image: url(../resources/images/room-2.jpg);"></a>
