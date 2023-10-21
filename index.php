@@ -68,7 +68,7 @@ $allRooms = $rooms->fetchAll(PDO::FETCH_OBJ);
 						<div class="half left-arrow d-flex align-items-center">
 							<div class="text p-4 p-xl-5 text-center">
 								<p class="star mb-0"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></p>
-								<!-- <p class="mb-0"><span class="price mr-1">$120.00</span> <span class="per">per night</span></p> -->
+								<p class="mb-0"><span class="price mr-1">$<?php echo $room->price; ?></span> <span class="per">per night</span></p>
 								<h3 class="mb-3"><a href="./views/room-single.php?id=<?php echo $room->id_room; ?>"><?php echo $room->room_name; ?></a></h3>
 								<ul class="list-accomodation">
 									<li><span>Max:</span> <?php echo $room->num_persons; ?> Persons</li>

@@ -1,60 +1,74 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<?php
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/5c5946fe44.js" crossorigin="anonymous"></script>
-    <title>Pay Page</title>
-  </head>
-  <body>
+require_once('../includes/header.php');
+require_once('../config/config.php');
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark" >
-    <div class="container" style="margin-top: none">
-        <a class="navbar-brand  text-white" href="#">Pay Page</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      
-        </div>
-    </div>
-    </nav>
+?>
 
-    <div class="container">  
+
+<div class="hero-wrap js-fullheight" style="background-image: url(../resources/images/image_2.jpg);" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
+            <div class="col-md-7 ftco-animate">
+                <h1 class="mb-4">Pay Page For Your Room: <?php echo $_SESSION['username']; ?></h1>
+
+                <div class="container">
                     <!-- Replace "test" with your own sandbox Business account app client ID -->
-                    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+                    <script src="https://www.paypal.com/sdk/js?client-id=AekeuaIg0EkwixS1M0DU3KiCcqX-DxrZOPEmVp_vihPcxtAYlv7L_FNeHRcxnLWRV3MXdpp1XdBfiMWL&currency=USD"></script>
                     <!-- Set up a container element for the button -->
                     <div id="paypal-button-container"></div>
+
+                    <!--
+
+                        URL Sandbox para probar usuarios: https://sandbox.paypal.com
+
+                        usuario paypal: sb-itpo927785691@personal.example.com
+                        contraseña: !l1/SuMD
+
+                        usuario paypal business: sb-od1yc26169716@business.example.com
+                        contraseña: ec$vH0A<
+                    -->
+
                     <script>
                         paypal.Buttons({
-                        // Sets up the transaction when a payment button is clicked
-                        createOrder: (data, actions) => {
-                            return actions.order.create({
-                            purchase_units: [{
-                                amount: {
-                                value: '300' // Can also reference a variable or function
-                                }
-                            }]
-                            });
-                        },
-                        // Finalize the transaction after payer approval
-                        onApprove: (data, actions) => {
-                            return actions.order.capture().then(function(orderData) {
-                          
-                             window.location.href='index.php';
-                            });
-                        }
+                            // Sets up the transaction when a payment button is clicked
+                            createOrder: (data, actions) => {
+                                return actions.order.create({
+                                    purchase_units: [{
+                                        amount: {
+                                            value: '<?php echo $_SESSION['price']; ?>' // Can also reference a variable or function
+                                        }
+                                    }]
+                                });
+                            },
+                            // Finalize the transaction after payer approval
+                            onApprove: (data, actions) => {
+                                return actions.order.capture().then(function(orderData) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Perfecto!',
+                                        text: 'Tu reserva ha sido confirmada muchas gracias por confiar en nosotros :3',
+                                        type: 'success'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.href = 'http://localhost/Hotel/';
+                                        }
+                                    });
+                                });
+                            }
                         }).render('#paypal-button-container');
                     </script>
-                  
+
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
+<?php
 
-    <body>
-</html>
+require_once('../includes/footer.php');
+
+?>

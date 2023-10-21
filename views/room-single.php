@@ -36,14 +36,21 @@ if(isset($_GET['id'])){
 			$email = $_POST['email'];
 			$full_name = $_POST['full_name'];
 			$phone_number = $_POST['phone_number'];
-			$check_in = $_POST['check_in'];
-			$check_out = $_POST['check_out'];
+			$check_in = date_create($_POST['check_in']);
+			$check_out = date_create($_POST['check_out']);
 			$hotel_name = $singleRoom->hotel_name;
 			$room_name = $singleRoom->room_name;
 			$id_user = $_SESSION['id_user'];
+			$status = "Pending"; 
+			$payment = $singleRoom->price;
+
+			$days = date_diff($check_in, $check_out);
+
+			//Grapping price through session
+			$_SESSION['price'] = $payment * intval($days -> format('%R%a'));
 
 			if(date("Y/m/d") > $check_in OR date("Y/m/d") > $check_out){
-				echo "<script type='text/javascript'>
+					echo "<script type='text/javascript'>
 						Swal.fire({
 							title: 'Ocurrió un error inesperado',
 							text: 'No puedes seleccionar una fecha del pasado, selecciona una apartir de mañana',
@@ -62,19 +69,25 @@ if(isset($_GET['id'])){
 							});
 						</script>";
 				}else{
-					$booking = $conn -> prepare("INSERT INTO bookings (email, full_name, phone_number, check_in, check_out, hotel_name, room_name, id_user) 
-												 VALUES (:email, :full_name, :phone_number, :check_in, :check_out, :hotel_name, :room_name, :id_user");
+					
+					$booking = $conn -> prepare("INSERT INTO booking (email, full_name, phone_number, check_in, check_out, status, payment, hotel_name, room_name, id_user) 
+												 VALUES (:email, :full_name, :phone_number, :check_in, :check_out, :status, :payment, :hotel_name, :room_name, :id_user)");
 
 					$booking -> execute([
 						":email" => $email,
 						":full_name" => $full_name,
 						":phone_number" => $phone_number,
-						":check_in" => $check_in,
-						":check_out" => $check_out,
+						":check_in" => $_POST['check_in'],
+						":check_out" => $_POST['check_out'],
+						":status" => $status,
+						":payment" => $_SESSION['price'],
 						":hotel_name" => $hotel_name,
 						":room_name" => $room_name,
 						":id_user" => $id_user
 					]);
+
+					echo "<script>window.location.href='".APPURL."pay/pay.php'</script>";
+					
 				}
 			}
 		}
@@ -127,7 +140,7 @@ if(isset($_GET['id'])){
 							<div class="form-group">
 								<div class="input-wrap">
 									<div class="icon"><span class="ion-md-calendar"></span></div>
-									<input type="text" name="check_in" class="form-control appointment_date-check-in" placeholder="Check-In">
+									<input type="text" name="check_in" class="form-control appointment_date-check-in" placeholder="Check-In" autocomplete="off">
 								</div>
 							</div>
 						</div>
@@ -135,7 +148,7 @@ if(isset($_GET['id'])){
 						<div class="col-md-6">
 							<div class="form-group">
 								<div class="icon"><span class="ion-md-calendar"></span></div>
-								<input type="text" name="check_out" class="form-control appointment_date-check-out" placeholder="Check-Out">
+								<input type="text" name="check_out" class="form-control appointment_date-check-out" placeholder="Check-Out" autocomplete="off">
 							</div>
 						</div>
 
@@ -147,14 +160,6 @@ if(isset($_GET['id'])){
 									<a href="<?php echo APPURL; ?>auth/login.php" class="btn btn-primary py-3 px-4">Iniciar Sesión</a>
 								</div>
 							</div>
-							
-							<!--<div class="col-md-12">
-								<div class="form-group">
-									<button type="button" class="btn btn-primary py-3 px-4" data-bs-toggle="popover" data-bs-placement="top" data-bs-custom-class="custom-popover" data-bs-title="No has iniciado Sesión" data-bs-content="Si deseas reservar una habitación debes iniciar sesión!">
-										Book and Pay Now
-									</button>
-								</div>
-							</div>-->
 						<?php else : ?>
 							<div class="col-md-12">
 								<div class="form-group">
