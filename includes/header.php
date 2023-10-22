@@ -2,7 +2,9 @@
 
 session_start();
 
-define('APPURL', "http://localhost/Hotel/")
+define('APPURL', "http://localhost/Hotel/");
+define('HOTELIMAGES', "http://localhost/Hotel/admin/hotels-admins/hotelImages");
+define('ROOMSIMAGES', "http://localhost/Hotel/admin/rooms-admins/roomImages");
 
 ?>
 

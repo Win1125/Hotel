@@ -39,7 +39,7 @@ $allRooms = $rooms->fetchAll(PDO::FETCH_OBJ);
 			<?php foreach($allHotels as $hotel) : ?>
 				<div class="col-md-4 d-flex services align-self-stretch px-4 ftco-animate">
 					<div class="d-block services-wrap text-center">
-						<div class="img" style="background-image: url(./resources/images/<?php echo $hotel->image; ?>);"></div>
+						<div class="img" style="background-image: url(<?php echo HOTELIMAGES ?>/<?php echo $hotel->image; ?>);"></div>
 						<div class="media-body py-4 px-3">
 							<h3 class="heading"><?php echo $hotel->name; ?></h3>
 							<p><?php echo $hotel->description; ?></p>
@@ -64,7 +64,7 @@ $allRooms = $rooms->fetchAll(PDO::FETCH_OBJ);
 			<?php foreach ($allRooms as $room): ?>
 				<div class="col-lg-6">
 					<div class="room-wrap d-md-flex">
-						<a href="./views/room-single.php?id=<?php echo $room->id_room; ?>" class="img" style="background-image: url(./resources/images/<?php echo $room->image; ?>);"></a>
+						<a href="./views/room-single.php?id=<?php echo $room->id_room; ?>" class="img" style="background-image: url(<?php echo ROOMSIMAGES; ?>/<?php echo $room->image; ?>);"></a>
 						<div class="half left-arrow d-flex align-items-center">
 							<div class="text p-4 p-xl-5 text-center">
 								<p class="star mb-0"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></p>

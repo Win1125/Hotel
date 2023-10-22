@@ -3,7 +3,7 @@
 require_once('../includes/header.php');
 require_once('../config/config.php');
 
-$rooms = $conn->query("SELECT * FROM rooms WHERE status = 1");
+$rooms = $conn->query("SELECT DISTINCT * FROM rooms WHERE status = 1");
 $rooms->execute();
 
 $allRooms = $rooms->fetchAll(PDO::FETCH_OBJ);
