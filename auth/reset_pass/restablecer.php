@@ -1,8 +1,9 @@
 <?php 
     require_once ('../../config/config.php');
+    require_once ('../../includes/header.php');
 
     $email =$_POST['email'];
-    $bytes = random_bytes(20);
+    $bytes = random_bytes(50);
     $token =bin2hex($bytes);
     
     include "mail_reset.php";
@@ -17,7 +18,21 @@
             ":codigo" => $codigo
 		]);
 
-        echo '<p>Verifica tu email para restablecer tu cuenta</p>';
+        if($insert) {
+
+            echo "<script>
+                    Swal.fire({
+                        icon : 'info',
+                        title: 'Verifica tu email',
+                        text: 'Hemos enviado un codigo a tu correo para poder reestablecer tu contraseña',
+                        type: 'success'
+                    }).then((result) => {
+                        if(result.isConfirmed){
+                            window.location='" . APPURL . "/auth/login.php';
+                           }
+                    });
+                </script>";
+        }
     }
    
 

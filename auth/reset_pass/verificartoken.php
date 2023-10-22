@@ -34,28 +34,41 @@ if ($res->rowCount() > 0) {
 
 ?>
 
-<div class="container">
-    <div class="row justify-content-md-center" style="margin-top:15%">
-        <?php if ($correcto) { ?>
-            <form class="col-3" action="cambiarpassword.php" method="POST">
-                <h2>Restablecer Password</h2>
-                <div class="mb-3">
-                    <label for="c" class="form-label">Nuevo Password</label>
-                    <input type="password" class="form-control" id="c" name="p1">
-                </div>
-                <div class="mb-3">
-                    <label for="c" class="form-label">Confirmar Password</label>
-                    <input type="password" class="form-control" id="c" name="p2">
-                    <input type="hidden" class="form-control" id="c" name="email" value="<?php echo $email ?>">
-                </div>
+<section class="ftco-section ftco-book ftco-no-pt ftco-no-pb">
+    <div class="container">
+        <div class="row justify-content-md-center m-5 mb-5">
+            <?php if ($correcto) { ?>
+                <form class="col-3" action="cambiarpassword.php" method="POST">
+                    <h2>Restablecer Password</h2>
+                    <div class="mb-3">
+                        <label for="c" class="form-label">Nuevo Password</label>
+                        <input type="password" class="form-control" id="c" name="p1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="c" class="form-label">Confirmar Password</label>
+                        <input type="password" class="form-control" id="c" name="p2">
+                        <input type="hidden" class="form-control" id="c" name="email" value="<?php echo $email ?>">
+                    </div>
 
-                <button type="submit" class="btn btn-primary">Cambiar</button>
-            </form>
-        <?php } else { ?>
-            <div class="alert alert-danger">Código incorrecto o vencido</div>
-        <?php } ?>
+                    <button type="submit" class="btn btn-primary">Cambiar</button>
+                </form>
+            <?php } else { 
+                echo"<script>
+                        Swal.fire({
+                            icon : 'error',
+                            title: 'Ups! Ha ocurrido un error',
+                            text: 'Codigo ingresado incorrecto, por favor intenta otra vez',
+                            type: 'success'
+                        }).then((result) => {
+                            if(result.isConfirmed){
+                                window.location='" . APPURL . "/auth/login.php';
+                            }
+                        });
+                    </script>";
+            } ?>
 
+        </div>
     </div>
-</div>
+</section>
 
-<?php include "./includes/footer.php"; ?>
+<?php include "../../includes/footer.php"; ?>
