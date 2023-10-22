@@ -150,7 +150,7 @@ if (isset($_POST['submit'])) {
 							</div>
 						</div>
 
-
+						<a href="./restablecer.php">Forgot my password</a> <br>
 
 						<div class="col-md-12">
 							<div class="form-group">
