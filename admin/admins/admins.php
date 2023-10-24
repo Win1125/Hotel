@@ -37,8 +37,8 @@ if(!isset($_SESSION['admin_name'])) {
 								<td><?php echo $admin -> email ?></td>
 								<td><?php echo $admin -> created_at ?></td>
 								<td>
-                                	<a class="btn btn-small btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-                                	<a class="btn btn-small btn-danger"><i class="fa-solid fa-trash"></i></a>
+                                	<a href="update-admins.php?id=<?php echo $admin->id ?>" class="btn btn-small btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                                	<a href="delete-admins.php?id=<?php echo $admin->id ?>" class="btn btn-small btn-danger"><i class="fa-solid fa-trash"></i></a>
                             	</td>
 							</tr>
 						<?php endforeach; ?>

@@ -9,28 +9,46 @@ $codigo = $_POST['codigo'];
 $res = $conn->query("SELECT * FROM passwords WHERE email='$email' AND token='$token' AND codigo=$codigo");
 $res->execute();
 
-$correcto = false;
-if ($res->rowCount() > 0) {
+//Verificar si el correo existe en la base de datos
+$login = $conn->query("SELECT * FROM user WHERE email = '$email'");
+$login->execute();
 
-    $fila = $res->fetch(PDO::FETCH_ASSOC);
+if ($login->rowCount() > 0) {
 
-    $fecha = $fila['created_at'];
-    $fecha_actual = date("Y-m-d h:m:s");
-    $seconds = strtotime($fecha_actual) - strtotime($fecha);
-    $minutos = $seconds / 60;
+    $correcto = false;
+    if ($res->rowCount() > 0) {
 
-    /* if($minutos > 10 ){
+        $fila = $res->fetch(PDO::FETCH_ASSOC);
+
+        $fecha = $fila['created_at'];
+        $fecha_actual = date("Y-m-d h:m:s");
+        $seconds = strtotime($fecha_actual) - strtotime($fecha);
+        $minutos = $seconds / 60;
+
+        /* if($minutos > 10 ){
             echo "token vencido";
         }else{
             echo "todo correcto";
         }*/
 
-    $correcto = true;
+        $correcto = true;
+    } else {
+        $correcto = false;
+    }
 } else {
-    $correcto = false;
+    echo "<script>
+            Swal.fire({
+                icon : 'error',
+                title: 'Ups! Ha ocurrido un error',
+                text: 'El correo que ingresaste no existe :C',
+                type: 'success'
+            }).then((result) => {
+                if(result.isConfirmed){
+                    window.location='" . APPURL . "/auth/login.php';
+                }
+            });
+        </script>";
 }
-
-
 
 ?>
 
@@ -52,8 +70,8 @@ if ($res->rowCount() > 0) {
 
                     <button type="submit" class="btn btn-primary">Cambiar</button>
                 </form>
-            <?php } else { 
-                echo"<script>
+            <?php } else {
+                echo "<script>
                         Swal.fire({
                             icon : 'error',
                             title: 'Ups! Ha ocurrido un error',

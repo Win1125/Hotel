@@ -1,5 +1,6 @@
 <?php
 // Varios destinatarios
+
 $para  = 'edwineladio73@gmail.com';
 
 // título

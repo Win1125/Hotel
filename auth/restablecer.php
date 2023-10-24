@@ -11,7 +11,6 @@ require_once '../config/config.php';
                 <div class="mb-3">
                     <label for="c" class="form-label">Email</label>
                     <input type="email" class="form-control" id="c" name="email">
-
                 </div>
 
                 <button type="submit" class="btn btn-primary">Restablecer</button>
