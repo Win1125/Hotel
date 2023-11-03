@@ -53,6 +53,12 @@ define("ADMINURL", "http://localhost/Hotel/admin/");
 							<li class="nav-item">
 								<a class="nav-link" href="<?php echo ADMINURL; ?>bookings-admins/show-bookings.php" style="margin-left: 20px;">Bookings</a>
 							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="<?php echo ADMINURL; ?>users-admins/show-users.php" style="margin-left: 20px;">Users</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="<?php echo ADMINURL; ?>payments-admins/show-payments.php" style="margin-left: 20px;">Payments</a>
+							</li>
 						</ul>
 					<?php endif; ?>
 					<ul class="navbar-nav ml-md-auto d-md-flex">
