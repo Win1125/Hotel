@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
 							type: 'success'
 						}).then((result) => {
 							if(result.isConfirmed){
-								window.location='admins.php';
+								window.location='show-users.php';
 							}
 						});
 					</script>";

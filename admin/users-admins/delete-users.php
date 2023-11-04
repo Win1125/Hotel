@@ -28,7 +28,7 @@ if(isset($_GET["id"])){
                         type: 'success'
                     }).then((result) => {
                         if(result.isConfirmed){
-                            window.location='admins.php';
+                            window.location='show-users.php';
                         }
                     });
                 }
