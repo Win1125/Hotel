@@ -8,6 +8,7 @@ if (isset($_GET['id'])) {
 	$id = $_GET['id'];
 
 	if (isset($_POST['submit'])) {
+
 		$status = $_POST['status'];
 
 		$update = $conn->prepare("UPDATE booking SET status = :status WHERE id_booking = '$id'");
@@ -15,8 +16,8 @@ if (isset($_GET['id'])) {
 		$update->execute([
 			":status" => $status
 		]);
-
-		if($status == "Finished"){
+		
+		if ($status == "Finished") {
 			echo	"<script>
 						Swal.fire({
 							icon : 'info',
@@ -29,7 +30,7 @@ if (isset($_GET['id'])) {
 							}
 						});
 					</script>";
-		}else{
+		} else {
 			echo	"<script>
 						Swal.fire({
 							icon : 'info',
@@ -58,7 +59,7 @@ if (isset($_GET['id'])) {
 						<option>Choose Status</option>
 						<option value="Pending">Pending</option>
 						<option value="Confirmed">Confirmed</option>
-                        <option value="Finished">Finished</option>
+						<option value="Finished">Finished</option>
 					</select>
 					<!-- Submit button -->
 					<button style="margin-top: 10px;" type="submit" name="submit" class="btn btn-primary  mb-4 text-center">update</button>
@@ -68,4 +69,4 @@ if (isset($_GET['id'])) {
 	</div>
 </div>
 
-<?php require_once ('../layouts/footer.php'); ?>
+<?php require_once('../layouts/footer.php'); ?>

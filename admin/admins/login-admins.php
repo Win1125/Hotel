@@ -110,7 +110,7 @@ if (isset($_POST['submit'])) {
 				<form method="POST" class="p-auto" action="./login-admins.php" autocomplete="off">
 					<!-- Email input -->
 					<div class="form-outline mb-4">
-						<input type="email" name="email" id="form2Example1" class="form-control" placeholder="Email" autocomplete="off" />
+						<input type="email" name="email" id="form2Example1" class="form-control" placeholder="Email" autocomplete="off" pattern="[a-zA-Z0-9$@.-]{7,100}"/>
 					</div>
 
 					<!-- Password input -->

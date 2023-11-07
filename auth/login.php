@@ -140,7 +140,7 @@ if (isset($_POST['submit'])) {
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<input type="text" class="form-control" name="email" placeholder="Email">
+								<input type="text" pattern="[a-zA-Z0-9$@.-]{7,100}" class="form-control" name="email" placeholder="Email">
 							</div>
 						</div>
 
