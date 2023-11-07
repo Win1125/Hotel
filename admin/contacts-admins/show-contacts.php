@@ -169,7 +169,7 @@ if (isset($_GET['del'])) {
                                 <?php
                                 $seen = "";
                                 if ($contact->status != 1) {
-                                    $seen = "<a href='?seen=$contact->id_contact' class='btn btn-sm rounded-pill btn-primary'>Mark Read</a>";
+                                    $seen = "<a href='?seen=$contact->id_contact' class='btn btn-sm rounded-pill btn-primary'>Mark Read</a><br>";
                                 }
                                 $seen .= "<a href='?del=$contact->id_contact' class='btn btn-sm rounded-pill btn-danger mt-1'>Delete</a>";
                                 ?>

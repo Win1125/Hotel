@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-10-2023 a las 22:00:06
+-- Tiempo de generación: 07-11-2023 a las 20:07:04
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -40,8 +40,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `admin_name`, `email`, `mypassword`, `created_at`) VALUES
-(1, 'Admin', 'admin.first@gmail.com', '$2y$10$.NdyKa0hBtfKjmumbYP/ROBA8zJo8mG0QvUw1eDZ5xJr6hcHDBqbS', '2023-10-21 09:20:45'),
-(2, 'arroz', 'admin.second@gmail.com', '$2y$10$prJLCe7onoVv2e96ZMfwGOH5UfA762oWnWWhFVMsOvIBfvUrJeE9q', '2023-10-21 23:33:48');
+(1, 'Admin', 'admin.first@gmail.com', '$2y$10$.NdyKa0hBtfKjmumbYP/ROBA8zJo8mG0QvUw1eDZ5xJr6hcHDBqbS', '2023-10-21 09:20:45');
 
 -- --------------------------------------------------------
 
@@ -71,8 +70,26 @@ CREATE TABLE `booking` (
 INSERT INTO `booking` (`id_booking`, `email`, `full_name`, `phone_number`, `check_in`, `check_out`, `status`, `payment`, `hotel_name`, `room_name`, `id_user`, `created_at`) VALUES
 (9, 'edwineladio73@gmail.com', 'Edwin Fandiño Salazar', 2147483647, '10/23/2023', '10/24/2023', 'Finished', 125, 'Sheraton', 'Suite Room', 2, '2023-10-22 06:05:42'),
 (10, 'edwineladio73@gmail.com', 'Edwin Fandiño Salazar', 2147483647, '10/30/2023', '11/1/2023', 'Finished', 250, 'Sheraton', 'Suite Room', 2, '2023-10-22 05:51:12'),
-(11, 'edwineladio73@gmail.com', 'Edwin Fandiño Salazar', 2147483647, '11/1/2023', '11/4/2023', 'Confirmed', 300, 'The Ritz', 'Family Room', 2, '2023-10-22 06:05:52'),
-(12, 'edwineladio73@gmail.com', 'Edwin Fandiño Salazar', 2147483647, '10/29/2023', '10/31/2023', 'Confirmed', 250, 'Sheraton', 'Suite Room', 2, '2023-10-22 05:52:04');
+(11, 'edwineladio73@gmail.com', 'Edwin Fandiño Salazar', 2147483647, '11/1/2023', '11/4/2023', 'Finished', 300, 'The Ritz', 'Family Room', 2, '2023-11-07 15:47:39'),
+(12, 'edwineladio73@gmail.com', 'Edwin Fandiño Salazar', 2147483647, '10/29/2023', '11/01/2023', 'Confirmed', 250, 'Sheraton', 'Suite Room', 2, '2023-10-23 23:34:45'),
+(13, 'Franco@gmail.com', 'Andrés Felipe Franco Téllez', 2147483647, '11/29/2023', '11/29/2023', 'Finished', 0, 'The Plaza Hotel', 'Standard Room', 8, '2023-11-07 15:57:02'),
+(14, 'Franco@gmail.com', 'Andrés Felipe Franco Téllez', 2147483647, '11/29/2023', '12/2/2023', 'Finished', 240, 'The Plaza Hotel', 'Standard Room', 8, '2023-11-07 15:57:31');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `contact`
+--
+
+CREATE TABLE `contact` (
+  `id_contact` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `subject` varchar(100) NOT NULL,
+  `message` varchar(255) NOT NULL,
+  `created_at` date NOT NULL DEFAULT current_timestamp(),
+  `status` tinyint(4) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -124,7 +141,9 @@ INSERT INTO `passwords` (`id`, `email`, `token`, `codigo`, `created_at`) VALUES
 (4, 'edwineladio73@gmail.com', '35a5e0ef66093dc22ed19967602bbadbd62622b7', 4112, '2023-10-22 09:10:47'),
 (5, 'edwineladio73@gmail.com', 'fd77b86252e42b46722132eed10946bc76281f24', 3825, '2023-10-22 09:30:10'),
 (6, 'edwineladio73@gmail.com', '22f0bd50aaf3872e1bbe118b35a2b42947389b42', 8368, '2023-10-22 09:34:39'),
-(7, 'edwineladio73@gmail.com', 'e11785ea796548da1307e0b7ff81b08bca190eaf', 1261, '2023-10-22 09:37:48');
+(7, 'edwineladio73@gmail.com', 'e11785ea796548da1307e0b7ff81b08bca190eaf', 1261, '2023-10-22 09:37:48'),
+(8, 'Franco@gmail.com', '6d5e19637e2ac32fbb74cfac6a0ac4810770afb40dfb7bb0061a0f9f9f8c58a1bacaada66efdf54330ec1988411d60b44280', 9206, '2023-11-07 15:48:58'),
+(9, 'EdwinE@gmail.com', 'a2eea5441dad8c871de8281109aec28c15de2f075be3ed06548f9716c5140ec15f9988913db7871aec2bd3a2781e412ad4ad', 5301, '2023-11-07 18:39:37');
 
 -- --------------------------------------------------------
 
@@ -176,12 +195,14 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `email`, `mypassword`, `created_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$RD7U1Txs0CSy0.AUcZeZRu7SOo7lVQ1KOT7WtSiJ5HQrdOGDObndW', '2023-10-06 00:12:47'),
+(1, 'admin edit', 'admin@gmail.com', '$2y$10$RD7U1Txs0CSy0.AUcZeZRu7SOo7lVQ1KOT7WtSiJ5HQrdOGDObndW', '2023-11-03 17:31:56'),
 (2, 'Edwin', 'edwin@gmail.com', '$2y$10$UI6SlQzagDbYnzHzUg3LxOZcKWpsgMVu7h9AbNOwjksQu8w5cyILK', '2023-10-08 05:56:36'),
 (3, 'karen', 'karen@gmail.com', '$2y$10$.NdyKa0hBtfKjmumbYP/ROBA8zJo8mG0QvUw1eDZ5xJr6hcHDBqbS', '2023-10-08 05:57:07'),
 (4, 'oscar', 'oscar@gmail.com', '$2y$10$qkHwUnJCZZCC4hKu9XdC3edADazu3M7vaSS0gNztj2PVWwHxhzB9m', '2023-10-08 06:28:24'),
 (5, 'andres', 'andres@gmail.com', '$2y$10$OOtQDlVRaVmuiahXQ0gr2e99QSG5Ofaxha0xPbHsUgeUkCb4K3U6y', '2023-10-08 06:29:11'),
-(6, 'Edwin', 'edwineladio73@gmail.com', '$2y$10$9UGwM1mdd1cwQFD5nmYzl.zHAw4OAU42SYtQMg7xoVEoF0lLTCu5S', '2023-10-22 09:38:28');
+(6, 'Edwin', 'edwineladio73@gmail.com', '$2y$10$9UGwM1mdd1cwQFD5nmYzl.zHAw4OAU42SYtQMg7xoVEoF0lLTCu5S', '2023-10-22 09:38:28'),
+(8, 'Franco', 'Franco@gmail.com', '$2y$10$jZviJFuOKXFk90nH.jrWSu1fIYQhkeIBPNMmk31OBuyAqZxO33kge', '2023-11-07 15:50:21'),
+(9, 'Edwin Eladio', 'EdwinE@gmail.com', '$2y$10$nQd3sebThoRlYFB3mArO0e1t2LYpLKk.7djAcmoJxj.Gr4eIm2LEm', '2023-11-07 18:42:22');
 
 -- --------------------------------------------------------
 
@@ -213,6 +234,12 @@ ALTER TABLE `admins`
 --
 ALTER TABLE `booking`
   ADD PRIMARY KEY (`id_booking`);
+
+--
+-- Indices de la tabla `contact`
+--
+ALTER TABLE `contact`
+  ADD PRIMARY KEY (`id_contact`);
 
 --
 -- Indices de la tabla `hotels`
@@ -252,37 +279,43 @@ ALTER TABLE `utilities`
 -- AUTO_INCREMENT de la tabla `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `id_booking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_booking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `contact`
+--
+ALTER TABLE `contact`
+  MODIFY `id_contact` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `hotels`
 --
 ALTER TABLE `hotels`
-  MODIFY `id_hotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_hotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `passwords`
 --
 ALTER TABLE `passwords`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id_room` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_room` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `utilities`

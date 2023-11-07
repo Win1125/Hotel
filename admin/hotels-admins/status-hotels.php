@@ -10,24 +10,40 @@ if (isset($_GET['id'])) {
 	if (isset($_POST['submit'])) {
 		$status = $_POST['status'];
 
-		$update = $conn->prepare("UPDATE hotels SET status = :status WHERE id_hotel = '$id'");
-
-		$update->execute([
-			":status" => $status
-		]);
-
-		echo	"<script>
+		if($status == 'null'){
+			echo	"<script>
 						Swal.fire({
-							icon : 'info',
-							title: 'Actualización Exitosa',
-							text: 'Hotel actualizado',
-							type: 'success'
+							icon : 'error',
+							title: 'Ups! Hubo un problema',
+							text: 'Selecciona un estado valido',
+							type: 'error'
 						}).then((result) => {
 							if(result.isConfirmed){
-								window.location='show-hotels.php';
+								window.location='status-hotels.php';
 							}
 						});
 					</script>";
+		}else{
+			
+			$update = $conn->prepare("UPDATE hotels SET status = :status WHERE id_hotel = '$id'");
+
+			$update->execute([
+				":status" => $status
+			]);
+
+			echo	"<script>
+							Swal.fire({
+								icon : 'info',
+								title: 'Actualización Exitosa',
+								text: 'Hotel actualizado',
+								type: 'success'
+							}).then((result) => {
+								if(result.isConfirmed){
+									window.location='show-hotels.php';
+								}
+							});
+						</script>";
+		}
 	}
 }
 
@@ -41,7 +57,7 @@ if (isset($_GET['id'])) {
 				<form method="POST" action="status-hotels.php?id=<?php echo $id ?>">
 					<!-- Email input -->
 					<select name="status" style="margin-top: 15px;" class="form-control">
-						<option>Choose Status</option>
+						<option value="null">Choose Status</option>
 						<option value="1">1</option>
 						<option value="0">0</option>
 					</select>
