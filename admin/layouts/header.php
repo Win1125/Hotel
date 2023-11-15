@@ -21,13 +21,16 @@ define("ADMINURL", "http://localhost/Hotel/admin/");
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://kit.fontawesome.com/1bf359b2a0.js" crossorigin="anonymous"></script>
+	
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <body>
 	<div id="wrapper">
 		<nav class="navbar header-top fixed-top navbar-expand-lg  navbar-dark bg-dark">
 			<div class="container">
-				<a class="navbar-brand" href="<?php echo ADMINURL; ?>">LOGO</a>
+				<a class="navbar-brand" href="<?php echo ADMINURL; ?>">DASHBOARD</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
 					aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>

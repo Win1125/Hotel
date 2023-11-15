@@ -3,7 +3,7 @@
 
 Este es un sistema de reservas de habitaciones de hotel desarrollado en PHP. Permite a los clientes realizar reservas de habitaciones de hotel y a los administradores gestionar esas reservas.
 
-## Video Explicación
+## Video Explicación Entrega 1
 
 - https://udistritaleduco.sharepoint.com/:v:/s/AnlisisSocialColombiano302/EY5BVlKKH4tKhDFIGgydQWcBHdhZliI4sn7LhOYl2R1EFA?e=VrHTzQ
 
