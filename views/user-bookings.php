@@ -15,6 +15,9 @@ if (isset($_GET['id'])) {
         echo "<script>window.location.href='" . APPURL . "'</script>";
     }
 
+
+    //$bookings = $conn->query("SELECT users.*, booking.* FROM users JOIN booking ON users.id_user = booking.id_user WHERE users.id_user = '$id'");
+
     $bookings = $conn->query("SELECT * FROM booking WHERE id_user = '$id'");
     $bookings->execute();
 

@@ -2,32 +2,32 @@
 <?php require_once ('../config/config.php') ?>
 
 <?php
-if(!isset($_SESSION['admin_name'])) {
-	echo "<script>window.location.href='".ADMINURL."admins/login-admins.php' </script>";
+
+$validar = $_SESSION['admin_name'];
+
+if(!isset($validar)) {
+	echo "<script>window.location.href='".ADMINURL."includes/login.php' </script>";
+	die();
 }
 
 
 $hotels = $conn->query("SELECT COUNT(*) AS count_hotels FROM hotels");
 $hotels->execute();
-
 $allHotels = $hotels->fetch(PDO::FETCH_OBJ);
 
 
 $rooms = $conn->query("SELECT COUNT(*) AS count_rooms FROM rooms");
 $rooms->execute();
-
 $allRooms = $rooms->fetch(PDO::FETCH_OBJ);
 
 
 $users = $conn->query("SELECT COUNT(*) AS count_users FROM user");
 $users->execute();
-
 $allUsers = $users->fetch(PDO::FETCH_OBJ);
 
 
 $bookings = $conn->query("SELECT COUNT(*) AS count_books FROM booking");
 $bookings->execute();
-
 $allBookings = $bookings->fetch(PDO::FETCH_OBJ);
 ?>
 

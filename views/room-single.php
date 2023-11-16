@@ -13,10 +13,10 @@ if(isset($_GET['id'])){
 
 
 	//Grapping the utilities
-	$utilities = $conn->query("SELECT * FROM utilities WHERE id_room = '$id'");
+	/*$utilities = $conn->query("SELECT * FROM utilities WHERE id_room = '$id'");
 	$utilities->execute();
 
-	$allUtilities = $utilities->fetchAll(PDO::FETCH_OBJ);
+	$allUtilities = $utilities->fetchAll(PDO::FETCH_OBJ);*/
 
 	if (isset($_POST['submit'])) {
 
@@ -142,7 +142,7 @@ if(isset($_GET['id'])){
 							<div class="form-group">
 								<div class="input-wrap">
 									<div class="icon"><span class="ion-md-calendar"></span></div>
-									<input type="text" name="check_in" class="form-control appointment_date-check-in" placeholder="Check-In" autocomplete="off">
+									<input type="date" name="check_in" class="form-control" placeholder="Check-In" autocomplete="off">
 								</div>
 							</div>
 						</div>
@@ -150,7 +150,7 @@ if(isset($_GET['id'])){
 						<div class="col-md-6">
 							<div class="form-group">
 								<div class="icon"><span class="ion-md-calendar"></span></div>
-								<input type="text" name="check_out" class="form-control appointment_date-check-out" placeholder="Check-Out" autocomplete="off">
+								<input type="date" name="check_out" class="form-control" placeholder="Check-Out" autocomplete="off">
 							</div>
 						</div>
 
@@ -196,17 +196,17 @@ if(isset($_GET['id'])){
 				<div class="pl-md-5">
 					<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
 					<div class="row">
-						<?php foreach($allUtilities as $utility) : ?>
+						<?php //foreach($allUtilities as $utility) : ?>
 							<div class="services-2 col-lg-6 d-flex w-100">
 								<div class="icon d-flex justify-content-center align-items-center">
-									<span class="<?php echo $utility->icon; ?>"></span>
+									<span class="<?php //echo $utility->icon; ?>"></span>
 								</div>
 								<div class="media-body pl-3">
-									<h3 class="heading"><?php echo $utility->name; ?></h3>
-									<p><?php echo $utility->description; ?></p>
+									<h3 class="heading"><?php //echo $utility->name; ?></h3>
+									<p><?php //echo $utility->description; ?></p>
 								</div>
 							</div>
-						<?php endforeach; ?>
+						<?php //endforeach; ?>
 					</div>
 				</div>
 			</div>
