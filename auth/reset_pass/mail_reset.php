@@ -31,8 +31,8 @@ $mensaje = '
 // Para enviar un correo HTML, debe establecerse la cabecera Content-type
 $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
 $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-$cabeceras .= 'To: Mary <mary@example.com>, Kelly <kelly@example.com>' . "\r\n";
-$cabeceras .= 'From: Recordatorio <cumples@example.com>' . "\r\n";
+$cabeceras .= 'To: '.$email.'' . "\r\n";
+$cabeceras .= 'From: Resetea tu contraseña '.$para.'' . "\r\n";
 
 // Enviarlo
 $enviado =false;

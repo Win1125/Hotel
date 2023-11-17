@@ -49,7 +49,7 @@ define("ADMINURL", "http://localhost/Hotel/admin/");
 				</button>
 
 				<div class="collapse navbar-collapse" id="navbarText">
-					<?php if (isset($_SESSION['admin_name'])) : ?>
+					<?php if (isset($_SESSION['username'])) : ?>
 						<ul class="navbar-nav side-nav">
 							<li class="nav-item">
 								<a class="nav-link" style="margin-left: 20px;" href="<?php echo ADMINURL; ?>">Home
@@ -77,7 +77,7 @@ define("ADMINURL", "http://localhost/Hotel/admin/");
 						</ul>
 					<?php endif; ?>
 					<ul class="navbar-nav ml-md-auto d-md-flex">
-						<?php if (!isset($_SESSION['admin_name'])) : ?>
+						<?php if (!isset($_SESSION['username'])) : ?>
 							<li class="nav-item">
 								<a class="nav-link" href="<?php echo ADMINURL; ?>includes/login.php">login
 								</a>
@@ -90,7 +90,7 @@ define("ADMINURL", "http://localhost/Hotel/admin/");
 							</li>
 							<li class="nav-item dropdown">
 								<a class="nav-link  dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<?php echo $_SESSION['admin_name'] ?>
+									<?php echo $_SESSION['username'] ?>
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<a class="dropdown-item" href="<?php echo ADMINURL; ?>includes/_sesion/cerrarSesion.php">Logout</a>

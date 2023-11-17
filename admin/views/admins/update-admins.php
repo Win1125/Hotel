@@ -7,7 +7,7 @@ if (isset($_GET['id'])) {
 
 	$id = $_GET['id'];
 
-    $admin = $conn->query("SELECT * FROM admins WHERE id = '$id'");
+    $admin = $conn->query("SELECT * FROM users WHERE id_user = '$id'");
     $admin->execute();
 
     $adminSingle = $admin->fetch(PDO::FETCH_OBJ);
@@ -29,7 +29,7 @@ if (isset($_GET['id'])) {
             $admin_name = $_POST['admin_name'];
             $email = $_POST['email'];
 
-            $update = $conn->prepare("UPDATE admins SET admin_name = :admin_name, email = :email WHERE id = '$id'");
+            $update = $conn->prepare("UPDATE users SET username = :admin_name, email = :email WHERE id_user = '$id'");
 
             $update->execute([
                 ":admin_name" => $admin_name,
@@ -65,7 +65,7 @@ if (isset($_GET['id'])) {
 				<form method="POST" action="update-admins.php?id=<?php echo $id; ?>">
 					<div class="form-outline mb-4 mt-4">
 						<label for="idAdmin">ID User</label>
-						<input type="text" value="<?php echo $adminSingle->id; ?>" name="id" id="idAdmin" class="form-control" placeholder="id" readonly />
+						<input type="text" value="<?php echo $adminSingle->id_user; ?>" name="id" id="idAdmin" class="form-control" placeholder="id" readonly />
 					</div>
 
 					<div class="form-outline mb-4 mt-4">
@@ -73,7 +73,7 @@ if (isset($_GET['id'])) {
 					</div>
 
 					<div class="form-outline mb-4">
-						<input type="text" value="<?php echo $adminSingle->admin_name; ?>" name="admin_name" id="form2Example1" class="form-control" placeholder="admin name" />
+						<input type="text" value="<?php echo $adminSingle->username; ?>" name="admin_name" id="form2Example1" class="form-control" placeholder="admin name" />
 					</div>
 
 					<!-- Submit button -->

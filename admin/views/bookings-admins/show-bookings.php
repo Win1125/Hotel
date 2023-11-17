@@ -3,12 +3,19 @@
 
 <?php
 
+$validar = $_SESSION['username'];
 
-if (!isset($_SESSION['admin_name'])) {
-	echo "<script>window.location.href= '" . ADMINURL . "admins/login-admins.php' </script>";
+if (!isset($validar)) {
+    echo "<script>window.location.href= '" . ADMINURL . "admins/login-admins.php' </script>";
 }
 
-$bookings = $conn->query("SELECT * FROM booking");
+$bookings = $conn->query("SELECT b.id_booking, u.username 
+							AS user_name, u.email, b.phone_number, b.check_in, b.check_out, r.room_name, h.name 
+							AS hotel_name, s.name AS status_name, b.payment FROM booking b 
+							JOIN users u ON b.id_user = u.id_user 
+							JOIN rooms r ON b.id_room = r.id_room 
+							JOIN hotels h ON r.id_hotel = h.id_hotel 
+							JOIN status s ON b.id_status = s.id_status;");
 $bookings->execute();
 
 $allBookings = $bookings->fetchAll(PDO::FETCH_OBJ);
@@ -60,7 +67,6 @@ $allBookings = $bookings->fetchAll(PDO::FETCH_OBJ);
 							<th scope="col">Room</th>
 							<th scope="col">Status</th>
 							<th scope="col">Payment</th>
-							<th scope="col">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -70,20 +76,20 @@ $allBookings = $bookings->fetchAll(PDO::FETCH_OBJ);
 								<td><?php echo $book->check_out; ?></td>
 								<td><?php echo $book->email; ?></td>
 								<td><?php echo $book->phone_number; ?></td>
-								<td><?php echo $book->full_name; ?></td>
+								<td><?php echo $book->user_name; ?></td>
 								<td><?php echo $book->hotel_name; ?></td>
 								<td><?php echo $book->room_name; ?></td>
 
-								<td><?php if ($book->status == "Finished") { ?>
-										<a class="btn btn-small btn-success" aria-disabled="true"><?php echo $book->status; ?> <i class="fa-solid fa-rotate-right"></i></a>
+								<td><?php if ($book->status_name == "Finalizado") { ?>
+										<a class="btn btn-small btn-success" aria-disabled="true"><?php echo $book->status_name; ?> <i class="fa-solid fa-rotate-right"></i></a>
 									<?php } else { ?>
-										<a href="status-bookings.php?id=<?php echo $book->id_booking; ?>" class="btn btn-small btn-success"><?php echo $book->status; ?> <i class="fa-solid fa-rotate-right"></i></a>
+										<a href="status-bookings.php?id=<?php echo $book->id_booking; ?>" class="btn btn-small btn-success"><?php echo $book->status_name; ?> <i class="fa-solid fa-rotate-right"></i></a>
 									<?php } ?>
 								</td>
 
 								<td><?php echo $book->payment; ?></td>
 
-								<td><a href="update-bookings.php?id=<?php echo $book->id_booking; ?>" class="btn btn-small btn-warning text-white"><i class="fa-solid fa-pen-to-square"></i></a></td>
+								<!-- <td><a href="update-bookings.php?id=<?php echo $book->id_booking; ?>" class="btn btn-small btn-warning text-white"><i class="fa-solid fa-pen-to-square"></i></a></td> -->
 							</tr>
 						<?php endforeach; ?>
 					</tbody>

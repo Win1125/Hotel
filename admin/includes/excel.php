@@ -11,13 +11,13 @@ header("Content-Disposition: attachment; filename=reporte.xls");
                    
 <thead>    
 <tr>
-<th>Nombre</th>
-<th>Correo</th>
-<th>Password</th>
-<th>Telefono</th>
-<th>Fecha</th>
-<th>Rol</th>
-
+<th>ID Booking</th>
+<th>Check In</th>
+<th>Check Out</th>
+<th>Habitacion</th>
+<th>Precio</th>
+<th>Hotel</th>
+<th>Locacion</th>
 
 </tr>
 </thead>
@@ -25,10 +25,10 @@ header("Content-Disposition: attachment; filename=reporte.xls");
 
 <?php
 
-$conexion=mysqli_connect("localhost","root","","r_user");               
-$SQL="SELECT user.id, user.nombre, user.correo, user.password, user.telefono,
-user.fecha, permisos.rol FROM user
-LEFT JOIN permisos ON user.rol = permisos.id";
+$conexion=mysqli_connect("localhost","root","","hotel_a");               
+$SQL="SELECT b.id_booking, b.check_in, b.check_out, r.room_name, r.price, h.name AS hotel_name, h.location FROM booking b
+    JOIN rooms r ON b.id_room = r.id_room
+    JOIN hotels h ON r.id_hotel = h.id_hotel;";
 $dato = mysqli_query($conexion, $SQL);
 
 if($dato -> num_rows >0){
@@ -36,12 +36,13 @@ while($fila=mysqli_fetch_array($dato)){
 
 ?>
 <tr>
-<td><?php echo $fila['nombre']; ?></td>
-<td><?php echo $fila['correo']; ?></td>
-<td><?php echo $fila['password']; ?></td>
-<td><?php echo $fila['telefono']; ?></td>
-<td><?php echo $fila['fecha']; ?></td>
-<td><?php echo $fila['rol']; ?></td>
+<td><?php echo $fila['id_booking']; ?></td>
+<td><?php echo $fila['check_in']; ?></td>
+<td><?php echo $fila['check_out']; ?></td>
+<td><?php echo $fila['room_name']; ?></td>
+<td><?php echo $fila['price']; ?></td>
+<td><?php echo $fila['hotel_name']; ?></td>
+<td><?php echo $fila['location']; ?></td>
 
 
 

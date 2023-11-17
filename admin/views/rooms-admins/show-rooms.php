@@ -1,16 +1,20 @@
-<?php require_once ('../../layouts/header.php'); ?>
-<?php require_once ('../../../config/config.php'); ?>
+<?php require_once('../../layouts/header.php'); ?>
+<?php require_once('../../../config/config.php'); ?>
 
 <?php
 
-if(!isset($_SESSION['admin_name'])) {
-	echo "<script>window.location.href= '".ADMINURL."admins/login-admins.php' </script>";
+$validar = $_SESSION['username'];
+
+if (!isset($validar)) {
+	echo "<script>window.location.href= '" . ADMINURL . "admins/login-admins.php' </script>";
 }
 
-	$rooms = $conn->query("SELECT * FROM rooms");
-	$rooms->execute();
+$rooms = $conn->query("SELECT r.*, h.name AS hotel_name, s.name AS status_name FROM rooms r
+						JOIN hotels h ON r.id_hotel = h.id_hotel
+						JOIN status s ON r.id_status = s.id_status;");
+$rooms->execute();
 
-	$allRooms = $rooms->fetchAll(PDO::FETCH_OBJ);
+$allRooms = $rooms->fetchAll(PDO::FETCH_OBJ);
 
 ?>
 
@@ -37,21 +41,21 @@ if(!isset($_SESSION['admin_name'])) {
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach($allRooms as $room): ?>
+						<?php foreach ($allRooms as $room) : ?>
 							<tr>
-								<th scope="row"><?php echo $room -> id_room ?></th>
-								<td><?php echo $room -> room_name ?></td>
-								<td>$ <?php echo $room -> price ?></td>
-								<td><?php echo $room -> num_persons ?></td>
-								<td><?php echo $room -> size ?></td>
-								<td><?php echo $room -> view ?></td>
-								<td><?php echo $room -> num_beds ?></td>
-								<td><?php echo $room -> hotel_name ?></td>
-								<td><?php echo $room -> status ?></td>
+								<th scope="row"><?php echo $room->id_room ?></th>
+								<td><?php echo $room->room_name ?></td>
+								<td>$ <?php echo $room->price ?></td>
+								<td><?php echo $room->num_persons ?></td>
+								<td><?php echo $room->size ?></td>
+								<td><?php echo $room->view ?></td>
+								<td><?php echo $room->num_beds ?></td>
+								<td><?php echo $room->hotel_name ?></td>
+								<td><?php echo $room->status_name ?></td>
 								<td><a href="status-rooms.php?id=<?php echo $room->id_room ?>" class="btn btn-success  text-center ">status</a></td>
 								<td>
 									<a href="update-rooms.php?id=<?php echo $room->id_room ?>" class="btn btn-small btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-                                	<a href="delete-rooms.php?id=<?php echo $room->id_room ?>" class="btn btn-small btn-danger"><i class="fa-solid fa-trash"></i></a>
+									<a href="" class="btn btn-small btn-danger"><i class="fa-solid fa-trash"></i></a>
 								</td>
 							</tr>
 						<?php endforeach; ?>

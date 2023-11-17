@@ -3,7 +3,7 @@
 require_once('../includes/header.php');
 require_once('../config/config.php');
 
-$rooms = $conn->query("SELECT DISTINCT * FROM rooms WHERE status = 1");
+$rooms = $conn->query("SELECT DISTINCT * FROM rooms WHERE id_status = 1");
 $rooms->execute();
 
 $allRooms = $rooms->fetchAll(PDO::FETCH_OBJ);
@@ -29,7 +29,7 @@ $allRooms = $rooms->fetchAll(PDO::FETCH_OBJ);
 			<?php foreach ($allRooms as $room) : ?>
 				<div class="col-lg-6">
 					<div class="room-wrap d-md-flex">
-						<a class="img" style="background-image: url(../resources/images/<?php echo $room->image; ?>);"></a>
+						<a class="img" style="background-image: url(<?php echo ROOMSIMAGES; ?>/<?php echo $room->image; ?>);"></a>
 						<div class="half left-arrow d-flex align-items-center">
 							<div class="text p-4 p-xl-5 text-center">
 								<p class="star mb-0"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></p>

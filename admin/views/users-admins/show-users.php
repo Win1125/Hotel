@@ -3,14 +3,18 @@
 
 <?php
 
-$validar = $_SESSION['admin_name'];
+$validar = $_SESSION['username'];
 
-if(!isset($validar)) {
-	echo "<script>window.location.href='".ADMINURL."includes/login.php' </script>";
-	die();
+if (!isset($validar)) {
+    echo "<script>window.location.href= '" . ADMINURL . "admins/login-admins.php' </script>";
 }
 
-$users = $conn->query("SELECT * FROM user");
+/*$users = $conn->query("SELECT users.id_user, users.username, users.email, users.created_at FROM users 
+						JOIN user_roles ON users.id_user = user_roles.id_user 
+						JOIN roles ON user_roles.id_role = roles.id_role 
+						WHERE roles.role_name = 'Cliente';");*/
+
+$users = $conn->query("SELECT * FROM client_users;");
 $users->execute();
 
 $allUsers = $users->fetchAll(PDO::FETCH_OBJ);
@@ -51,7 +55,7 @@ $allUsers = $users->fetchAll(PDO::FETCH_OBJ);
 							<th scope="col">#</th>
 							<th scope="col">User Name</th>
 							<th scope="col">Email</th>
-							<th scope="col">Created At</th>
+							<th scope="col">Rol</th>
 							<th scope="col">Actions</th>
 						</tr>
 					</thead>
@@ -61,10 +65,10 @@ $allUsers = $users->fetchAll(PDO::FETCH_OBJ);
 								<th scope="row"><?php echo $user->id_user ?></th>
 								<td><?php echo $user->username ?></td>
 								<td><?php echo $user->email ?></td>
-								<td><?php echo $user->created_at ?></td>
+								<td><?php echo $user->role_name ?></td>
 								<td>
 									<a class="btn btn-small btn-warning" href="update-users.php?id=<?php echo $user->id_user ?>"><i class="fa-solid fa-pen-to-square"></i></a>
-									<a class="btn btn-small btn-danger btn-del" href="delete-users.php?id=<?php echo $user->id_user ?>"><i class="fa-solid fa-trash"></i></a>
+									<!-- <a class="btn btn-small btn-danger btn-del" href="delete-users.php?id=<?php echo $user->id_user ?>"><i class="fa-solid fa-trash"></i></a> -->
 								</td>
 							</tr>
 						<?php endforeach; ?>

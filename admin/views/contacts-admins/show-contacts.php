@@ -3,11 +3,13 @@
 
 <?php
 
-if (!isset($_SESSION['admin_name'])) {
+$validar = $_SESSION['username'];
+
+if (!isset($validar)) {
     echo "<script>window.location.href= '" . ADMINURL . "admins/login-admins.php' </script>";
 }
 
-$contacts = $conn->query("SELECT * FROM contact order by id_contact DESC");
+$contacts = $conn->query("SELECT * FROM contacts order by id_contact DESC");
 $contacts->execute();
 
 $allContacts = $contacts->fetchAll(PDO::FETCH_OBJ);
@@ -17,15 +19,15 @@ if (isset($_GET['seen'])) {
 
     if ($_GET['seen'] == 'all') {
 
-        $status = 1;
+        $status = 5;
 
-        $update = $conn->prepare("UPDATE contact SET status = :status");
+        $update = $conn->prepare("UPDATE contacts SET id_status = :status");
 
         $update->execute([
             ":status" => $status
         ]);
 
-        if ($update>=1) {
+        if ($update) {
             echo    "<script>
                     Swal.fire({
                         icon : 'info',
@@ -55,9 +57,9 @@ if (isset($_GET['seen'])) {
     } else {
         $id = $_GET['seen'];
 
-        $status = 1;
+        $status = 5;
 
-        $update = $conn->prepare("UPDATE contact SET status = :status WHERE id_contact = '$id'");
+        $update = $conn->prepare("UPDATE contacts SET id_status = :status WHERE id_contact = '$id'");
 
         $update->execute([
             ":status" => $status
@@ -85,10 +87,10 @@ if (isset($_GET['del'])) {
 
     if ($_GET['del'] == 'all') {
 
-        $delete = $conn->query("DELETE FROM contact");
+        $delete = $conn->query("DELETE FROM contacts");
         $delete->execute();
 
-        if ($delete>=1) {
+        if ($delete) {
             echo    "<script>
                         Swal.fire({
                             icon : 'warning',
@@ -119,7 +121,7 @@ if (isset($_GET['del'])) {
     } else {
         $id = $_GET['del'];
 
-        $delete = $conn->query("DELETE FROM contact WHERE id_contact = '$id'");
+        $delete = $conn->query("DELETE FROM contacts WHERE id_contact = '$id'");
         $delete->execute();
 
         if ($delete) {
@@ -168,7 +170,7 @@ if (isset($_GET['del'])) {
                             <?php foreach ($allContacts as $contact) : ?>
                                 <?php
                                 $seen = "";
-                                if ($contact->status != 1) {
+                                if ($contact->id_status != 5) {
                                     $seen = "<a href='?seen=$contact->id_contact' class='btn btn-sm rounded-pill btn-primary'>Mark Read</a><br>";
                                 }
                                 $seen .= "<a href='?del=$contact->id_contact' class='btn btn-sm rounded-pill btn-danger mt-1'>Delete</a>";

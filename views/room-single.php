@@ -6,22 +6,26 @@ require_once('../config/config.php');
 
 if(isset($_GET['id'])){
 	$id = $_GET['id'];
-	$room = $conn->query("SELECT * FROM rooms WHERE id_room ='$id' AND status = 1");
+
+
+	$room = $conn->query("SELECT * FROM rooms WHERE id_room ='$id' AND id_status = 1");
 	$room->execute();
 
 	$singleRoom = $room->fetch(PDO::FETCH_OBJ);
 
 
 	//Grapping the utilities
-	/*$utilities = $conn->query("SELECT * FROM utilities WHERE id_room = '$id'");
+	$utilities = $conn->query("SELECT utilities.icon , utilities.name as utilitie, utilities.description FROM rooms 
+								JOIN room_utilities ON rooms.id_room = room_utilities.id_room 
+								JOIN utilities ON room_utilities.id_utilities = utilities.id_utilities 
+								WHERE rooms.id_room = '$id';");
 	$utilities->execute();
 
-	$allUtilities = $utilities->fetchAll(PDO::FETCH_OBJ);*/
+	$allUtilities = $utilities->fetchAll(PDO::FETCH_OBJ);
 
 	if (isset($_POST['submit'])) {
 
-		if (empty($_POST['full_name']) || empty($_POST['phone_number']) || empty($_POST['email']) || 
-			empty($_POST['check_in']) || empty($_POST['check_out'])) {
+		if (empty($_POST['phone_number']) || empty($_POST['check_in']) || empty($_POST['check_out'])) {
 	
 			echo "<script type='text/javascript'>
 					Swal.fire({
@@ -32,16 +36,10 @@ if(isset($_GET['id'])){
 					});
 				  </script>";
 		} else {
-	
-			$email = $_POST['email'];
-			$full_name = $_POST['full_name'];
 			$phone_number = $_POST['phone_number'];
 			$check_in = date_create($_POST['check_in']);
 			$check_out = date_create($_POST['check_out']);
-			$hotel_name = $singleRoom->hotel_name;
-			$room_name = $singleRoom->room_name;
 			$id_user = $_SESSION['id_user'];
-			$status = "Pending"; 
 			$payment = $singleRoom->price;
 
 			$days = date_diff($check_in, $check_out);
@@ -69,21 +67,22 @@ if(isset($_GET['id'])){
 							});
 						</script>";
 				}else{
-					
-					$booking = $conn -> prepare("INSERT INTO booking (email, full_name, phone_number, check_in, check_out, status, payment, hotel_name, room_name, id_user) 
-												 VALUES (:email, :full_name, :phone_number, :check_in, :check_out, :status, :payment, :hotel_name, :room_name, :id_user)");
+					$booking = $conn -> prepare("CALL InsertBooking(
+													:id_user,
+													:id_room,
+													:phone_number,
+													:check_in,
+													:check_out,
+													:payment
+												);");
 
 					$booking -> execute([
-						":email" => $email,
-						":full_name" => $full_name,
+						":id_user" => $id_user,
+						":id_room" => $id,
 						":phone_number" => $phone_number,
 						":check_in" => $_POST['check_in'],
 						":check_out" => $_POST['check_out'],
-						":status" => $status,
-						":payment" => $_SESSION['price'],
-						":hotel_name" => $hotel_name,
-						":room_name" => $room_name,
-						":id_user" => $id_user
+						":payment" => $_SESSION['price']
 					]);
 
 					echo "<script>window.location.href='".APPURL."pay/pay.php'</script>";
@@ -105,7 +104,6 @@ if(isset($_GET['id'])){
 			<div class="col-md-7 ftco-animate">
 				<h2 class="subheading">Welcome to Vacation Rental</h2>
 				<h1 class="mb-4"><?php echo $singleRoom->room_name; ?></h1>
-				<!-- <p><a href="#" class="btn btn-primary">Learn more</a> <a href="#" class="btn btn-white">Contact us</a></p> -->
 			</div>
 		</div>
 	</div>
@@ -120,18 +118,19 @@ if(isset($_GET['id'])){
 				<form action="room-single.php?id=<?php echo $id; ?>" method="post" class="appointment-form" style="margin-top: -568px;">
 					<h3 class="mb-3">Book this room</h3>
 					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<input type="text" name="email" class="form-control" placeholder="Email">
+						<?php if(!isset($_SESSION['username']) OR !isset($_SESSION['id_user'])) : ?>
+							<div class="col-md-12">
+								<div class="form-group">
+									<input type="text" name="email" class="form-control" placeholder="Email">
+								</div>
 							</div>
-						</div>
 
-						<div class="col-md-12">
-							<div class="form-group">
-								<input type="text" name="full_name" class="form-control" placeholder="Full Name">
+							<div class="col-md-12">
+								<div class="form-group">
+									<input type="text" name="full_name" class="form-control" placeholder="Full Name">
+								</div>
 							</div>
-						</div>
-
+						<?php endif; ?>
 						<div class="col-md-12">
 							<div class="form-group">
 								<input type="text" name="phone_number" class="form-control" placeholder="Phone Number">
@@ -196,17 +195,17 @@ if(isset($_GET['id'])){
 				<div class="pl-md-5">
 					<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
 					<div class="row">
-						<?php //foreach($allUtilities as $utility) : ?>
+						<?php foreach ($allUtilities as $util): ?>
 							<div class="services-2 col-lg-6 d-flex w-100">
 								<div class="icon d-flex justify-content-center align-items-center">
-									<span class="<?php //echo $utility->icon; ?>"></span>
+									<span class="<?php echo $util->icon; ?>"></span>
 								</div>
 								<div class="media-body pl-3">
-									<h3 class="heading"><?php //echo $utility->name; ?></h3>
-									<p><?php //echo $utility->description; ?></p>
+									<h3 class="heading"><?php echo $util->utilitie; ?></h3>
+									<p><?php echo $util->description; ?></p>
 								</div>
 							</div>
-						<?php //endforeach; ?>
+						<?php endforeach; ?>
 					</div>
 				</div>
 			</div>

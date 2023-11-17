@@ -5,7 +5,7 @@
         define("HOST", "localhost");
 
         //DBName
-        define("DBNAME", "hotel");
+        define("DBNAME", "hotel_a");
 
         //User
         define("USER", "root");

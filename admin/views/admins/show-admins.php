@@ -3,18 +3,28 @@
 
 <?php
 
-$validar = $_SESSION['admin_name'];
+$validar = $_SESSION['username'];
 
-if (!isset($validar)) {
-	echo "<script>window.location.href='" . ADMINURL . "includes/login.php' </script>";
+if(!isset($validar)) {
+	echo "<script>window.location.href='".ADMINURL."includes/login.php' </script>";
 	die();
 }
 
 
-$admins = $conn->query("SELECT * FROM admins");
+/*$admins = $conn->query("SELECT users.id_user, users.username, users.email, users.created_at FROM users 
+						JOIN user_roles ON users.id_user = user_roles.id_user 
+						JOIN roles ON user_roles.id_role = roles.id_role 
+						WHERE roles.role_name = 'Administrador';");*/
+$admins = $conn->query("SELECT * FROM `staff_users`");
 $admins->execute();
 
 $allAdmins = $admins->fetchAll(PDO::FETCH_OBJ);
+
+
+$rols = $conn->query(" SELECT * FROM roles");
+$rols->execute();
+
+$allRols = $rols->fetchAll(PDO::FETCH_OBJ);
 ?>
 
 <div class="row">
@@ -34,13 +44,13 @@ $allAdmins = $admins->fetchAll(PDO::FETCH_OBJ);
 				</div>
 				<br>
 				<?php
-				$conexion = mysqli_connect("localhost", "root", "", "hotel");
+				$conexion = mysqli_connect("localhost", "root", "", "hotel_a");
 				$where = "";
 				if (isset($_GET['enviar'])) {
 					$busqueda = $_GET['busqueda'];
 					if (isset($_GET['busqueda'])) {
-						$where = "WHERE email LIKE'%" . $busqueda . "%' OR admin_name  LIKE'%" . $busqueda . "%'
-							OR id  LIKE'%" . $busqueda . "%'";
+						$where = "WHERE email LIKE'%" . $busqueda . "%' OR username  LIKE'%" . $busqueda . "%'
+							OR rol_name  LIKE'%" . $busqueda . "%'";
 					}
 				}
 				?>
@@ -53,20 +63,20 @@ $allAdmins = $admins->fetchAll(PDO::FETCH_OBJ);
 							<th scope="col">#</th>
 							<th scope="col">Admin Name</th>
 							<th scope="col">Email</th>
-							<th scope="col">Created At</th>
+							<th scope="col">Rol</th>
 							<th scope="col">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php foreach ($allAdmins as $admin) : ?>
 							<tr>
-								<th scope="row"><?php echo $admin->id ?></th>
-								<td><?php echo $admin->admin_name ?></td>
+								<th scope="row"><?php echo $admin->id_user ?></th>
+								<td><?php echo $admin->username ?></td>
 								<td><?php echo $admin->email ?></td>
-								<td><?php echo $admin->created_at ?></td>
+								<td><?php echo $admin->role_name ?></td>
 								<td>
-									<a href="update-admins.php?id=<?php echo $admin->id ?>" class="btn btn-small btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-									<a href="delete-admins.php?id=<?php echo $admin->id ?>" class="btn btn-small btn-danger btn-del"><i class="fa-solid fa-trash"></i></a>
+									<a href="update-admins.php?id=<?php echo $admin->id_user ?>" class="btn btn-small btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+									<!--<a href="delete-admins.php?id=<?php echo $admin->id_user ?>" class="btn btn-small btn-danger btn-del"><i class="fa-solid fa-trash"></i></a>-->
 								</td>
 							</tr>
 						<?php endforeach; ?>
@@ -132,6 +142,17 @@ $allAdmins = $admins->fetchAll(PDO::FETCH_OBJ);
 					<div class="form-outline mb-4">
 						<input type="password" name="password" id="form2Example1" class="form-control" placeholder="password" />
 					</div>
+
+					<div class="form-outline mb-4">
+						<input type="password" name="password2" id="form2Example1" class="form-control" placeholder="verified password" />
+					</div>
+
+					<select name="rol_name" class="form-control">
+						<option>Rol</option>
+						<?php foreach ($allRols as $rol): ?>
+							<option value="<?php echo $rol -> role_name; ?>"><?php echo $rol -> role_name; ?></option>
+						<?php endforeach; ?>
+					</select>
 
 					<br>
 					<div class="mb-3">

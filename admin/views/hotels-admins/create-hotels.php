@@ -4,8 +4,10 @@
 
 <?php
 
-if (!isset($_SESSION['admin_name'])) {
-	echo "<script>window.location.href= '" . ADMINURL . "admins/login-admins.php' </script>";
+$validar = $_SESSION['username'];
+
+if (!isset($validar)) {
+    echo "<script>window.location.href= '" . ADMINURL . "admins/login-admins.php' </script>";
 }
 
 

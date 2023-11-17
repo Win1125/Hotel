@@ -4,7 +4,7 @@ include_once('./includes/header.php');
 require_once './config/config.php';
 
 //Consultas de Hoteles
-$hotels = $conn->query("SELECT * FROM hotels WHERE status = 1");
+$hotels = $conn->query("SELECT * FROM hotels WHERE id_status = 1");
 $hotels->execute();
 
 $allHotels = $hotels->fetchAll(PDO::FETCH_OBJ);
@@ -12,11 +12,17 @@ $allHotels = $hotels->fetchAll(PDO::FETCH_OBJ);
 
 
 //Consultas de Habitaciones
-$rooms = $conn->query("SELECT * FROM rooms WHERE status = 1");
+$rooms = $conn->query("SELECT * FROM rooms WHERE id_status = 1");
 $rooms->execute();
 
 $allRooms = $rooms->fetchAll(PDO::FETCH_OBJ);
 
+
+//Consulta de Utilidades
+$utilities = $conn->query("SELECT * FROM utilities");
+$utilities->execute();
+
+$allUtilities = $utilities->fetchAll(PDO::FETCH_OBJ);
 ?>
 
 <div class="hero-wrap js-fullheight" style="background-image: url(./resources/images/image_2.jpg);" data-stellar-background-ratio="0.5">
@@ -106,15 +112,17 @@ $allRooms = $rooms->fetchAll(PDO::FETCH_OBJ);
 				<div class="pl-md-5">
 					<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
 					<div class="row">
-						<div class="services-2 col-lg-6 d-flex w-100">
-							<div class="icon d-flex justify-content-center align-items-center">
-								<span class="flaticon-diet"></span>
+						<?php foreach ($allUtilities as $util): ?>
+							<div class="services-2 col-lg-6 d-flex w-100">
+								<div class="icon d-flex justify-content-center align-items-center">
+									<span class="<?php echo $util->icon; ?>"></span>
+								</div>
+								<div class="media-body pl-3">
+									<h3 class="heading"><?php echo $util->name; ?></h3>
+									<p><?php echo $util->description; ?></p>
+								</div>
 							</div>
-							<div class="media-body pl-3">
-								<h3 class="heading">Tea Coffee</h3>
-								<p>A small river named Duden flows by their place and supplies it with the necessary</p>
-							</div>
-						</div>
+						<?php endforeach; ?>
 					</div>
 				</div>
 			</div>

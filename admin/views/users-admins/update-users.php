@@ -5,7 +5,7 @@
 <?php
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $user = $conn->query("SELECT * FROM user WHERE id_user = '$id'");
+    $user = $conn->query("SELECT * FROM users WHERE id_user = '$id'");
     $user->execute();
     $userSingle = $user->fetch(PDO::FETCH_OBJ);
     if (isset($_POST['submit'])) {
@@ -22,7 +22,7 @@ if (isset($_GET['id'])) {
         } else {
             $username = $_POST['username'];
             $email = $_POST['email'];
-            $update = $conn->prepare("UPDATE user SET username = :username, email = :email WHERE id_user = '$id'");
+            $update = $conn->prepare("UPDATE users SET username = :username, email = :email WHERE id_user = '$id'");
             $update->execute([
                 ":username" => $username,
                 ":email" => $email

@@ -3,13 +3,11 @@
 
 <?php
 
-$validar = $_SESSION['admin_name'];
+$validar = $_SESSION['username'];
 
 if (!isset($validar)) {
-	echo "<script>window.location.href='" . ADMINURL . "includes/login.php' </script>";
-	die();
+	echo "<script>window.location.href= '" . ADMINURL . "admins/login-admins.php' </script>";
 }
-
 
 if (isset($_POST['registrar_usuario'])) {
 
@@ -32,7 +30,7 @@ if (isset($_POST['registrar_usuario'])) {
 
 		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-			$insert = $conn->prepare("INSERT INTO user (username, email, mypassword) VALUES (:username, :email, :mypassword)");
+			$insert = $conn->prepare("CALL InsertUserWithRole(:username, :email, :mypassword, 'Cliente')");
 
 			$insert->execute([
 				":username" => $username,
@@ -74,7 +72,8 @@ if (isset($_POST['registrar_usuario'])) {
 if (isset($_POST['registrar_admin'])) {
 
 
-	if (empty($_POST['admin_name']) || empty($_POST['password']) || empty($_POST['email'])) {
+	if (empty($_POST['admin_name']) || empty($_POST['password']) || empty($_POST['email'])
+	 || empty($_POST['password2']) || empty($_POST['rol_name'])) {
 
 		echo "<script type='text/javascript'>
 				Swal.fire({
@@ -86,44 +85,65 @@ if (isset($_POST['registrar_admin'])) {
 				});
           	</script>";
 	} else {
-
 		$admin_name = $_POST['admin_name'];
 		$email = $_POST['email'];
-		$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+		$password = $_POST['password'];
+		$password2 = $_POST['password2'];
+		$rol = $_POST['rol_name'];
 
-		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		if($password != $password2){
+			echo "<script type='text/javascript'>
+				Swal.fire({
+					icon : 'error',
+					title: 'Ups! Ocurrió un error inesperado',
+					text: 'Las contraseñas no son iguales',
+					type: 'error',
+					confirmButtonText: 'Aceptar'
+				}).then((result) => {
+					if(result.isConfirmed){
+						window.location='../views/admins/show-admins.php';
+					}
+				});
+          	</script>";
+		}else{
 
-			$insert = $conn->prepare("INSERT INTO admins (admin_name, email, mypassword) VALUES (:admin_name, :email, :mypassword)");
+			$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-			$insert->execute([
-				":admin_name" => $admin_name,
-				":email" => $email,
-				":mypassword" => $password
-			]);
+			if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-			if ($insert) {
-				echo	"<script>
-						Swal.fire({
-							icon : 'success',
-							title: 'Registro Exitoso',
-							text: 'Administrador registrado',
-							type: 'success'
-						}).then((result) => {
-							if(result.isConfirmed){
-								window.location='../views/admins/show-admins.php';
-							}
-						});
-					</script>";
+				$insert = $conn->prepare("CALL InsertUserWithRole(:username, :email, :mypassword, :rol)");
+	
+				$insert->execute([
+					":username" => $admin_name,
+					":email" => $email,
+					":mypassword" => $password,
+					":rol" => $rol
+				]);
+	
+				if ($insert) {
+					echo	"<script>
+							Swal.fire({
+								icon : 'success',
+								title: 'Registro Exitoso',
+								text: 'Usuario registrado',
+								type: 'success'
+							}).then((result) => {
+								if(result.isConfirmed){
+									window.location='../views/admins/show-admins.php';
+								}
+							});
+						</script>";
+				}
+			} else {
+				echo "<script>
+							Swal.fire({
+								icon : 'warning',
+								title: 'Ups!',
+								text: 'Ingresa un correo valido',
+								type: 'error'
+							});
+						</script>";
 			}
-		} else {
-			echo "<script>
-						Swal.fire({
-							icon : 'warning',
-							title: 'Ups!',
-							text: 'Ingresa un correo valido',
-							type: 'error'
-						});
-					</script>";
 		}
 	}
 }

@@ -10,7 +10,11 @@ $res = $conn->query("SELECT * FROM passwords WHERE email='$email' AND token='$to
 $res->execute();
 
 //Verificar si el correo existe en la base de datos
-$login = $conn->query("SELECT * FROM user WHERE email = '$email'");
+$login = $conn->query("SELECT u.id_user, u.username, u.email, u.mypassword FROM users u 
+                        JOIN user_roles ur ON u.id_user = ur.id_user 
+                        JOIN roles r ON ur.id_role = r.id_role 
+                        WHERE u.email = '$email'");
+
 $login->execute();
 
 if ($login->rowCount() > 0) {
@@ -24,12 +28,6 @@ if ($login->rowCount() > 0) {
         $fecha_actual = date("Y-m-d h:m:s");
         $seconds = strtotime($fecha_actual) - strtotime($fecha);
         $minutos = $seconds / 60;
-
-        /* if($minutos > 10 ){
-            echo "token vencido";
-        }else{
-            echo "todo correcto";
-        }*/
 
         $correcto = true;
     } else {
@@ -75,7 +73,7 @@ if ($login->rowCount() > 0) {
                         Swal.fire({
                             icon : 'error',
                             title: 'Ups! Ha ocurrido un error',
-                            text: 'Codigo ingresado incorrecto, por favor intenta otra vez',
+                            text: 'Codigo ingresado incorrecto, por favor intenta el proceso otra vez',
                             type: 'success'
                         }).then((result) => {
                             if(result.isConfirmed){

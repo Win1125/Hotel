@@ -183,5 +183,4 @@ if (isset($_POST['send'])) {
 
 
 require_once('../includes/footer.php');
-require_once('../resources/js/gooogle-map.js');
 ?>

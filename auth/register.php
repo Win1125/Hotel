@@ -26,7 +26,10 @@ if (isset($_POST['submit'])) {
 		$email_tabla = '';
 
 		//Validate the email
-		$login = $conn->query("SELECT * FROM user WHERE email = '$email'");
+		$login = $conn->query("SELECT u.id_user, u.username, u.email, u.mypassword FROM users u 
+								JOIN user_roles ur ON u.id_user = ur.id_user 
+								JOIN roles r ON ur.id_role = r.id_role 
+								WHERE u.email = '$email'");
 		$login->execute();
 
 		$fetch = $login->fetch(PDO::FETCH_ASSOC);
@@ -52,13 +55,11 @@ if (isset($_POST['submit'])) {
 
 			if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-				$insert = $conn->prepare("INSERT INTO user (username, email, mypassword) VALUES (:username, :email, :mypassword)");
+				$validar = $_SESSION['username'];
 
-				$insert->execute([
-					":username" => $username,
-					":email" => $email,
-					":mypassword" => $password
-				]);
+if (!isset($validar)) {
+    echo "<script>window.location.href= '" . ADMINURL . "admins/login-admins.php' </script>";
+}
 
 				if ($insert) {
 					echo	"<script>

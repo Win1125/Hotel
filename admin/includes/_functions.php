@@ -18,8 +18,10 @@ if (isset($_POST['accion'])) {
 
 function acceso_user()
 {
-    if (isset($_SESSION['admin_name'])) {
-        echo "<script>window.location.href='" . ADMINURL . "' </script>";
+    $validar = $_SESSION['username'];
+
+    if (!isset($validar)) {
+        echo "<script>window.location.href= '" . ADMINURL . "admins/login-admins.php' </script>";
     }
 
     if (isset($_POST['submit'])) {
@@ -40,8 +42,14 @@ function acceso_user()
             $password = $_POST['password'];
 
             //Validate the email with query
-            $conexion = mysqli_connect("localhost", "root", "", "hotel");
-            $consulta = "SELECT * FROM admins WHERE email='$email'";
+            $conexion = mysqli_connect("localhost", "root", "", "hotel_a");
+
+            $consulta = "SELECT u.id_user, u.username, u.email, u.mypassword, r.role_name as rol FROM users u
+                        JOIN user_roles ur ON u.id_user = ur.id_user
+                        JOIN roles r ON ur.id_role = r.id_role
+                        WHERE u.email = '$email'
+                        AND (r.role_name = 'Administrador' OR r.role_name = 'Recepcionista');";
+
             $resultado = mysqli_query($conexion, $consulta);
             $filas = mysqli_fetch_assoc($resultado);
 
@@ -53,7 +61,7 @@ function acceso_user()
                     echo "<script>
 						Swal.fire({
 							icon : 'success',
-							title: 'Bienvenido Administrador',
+							title: 'Bienvenido '.$validar.'',
 							text: 'Nos encanta recibirte',
 							type: 'success'
 						}).then((result) => {
@@ -63,8 +71,9 @@ function acceso_user()
 					    });
 					</script>";
 
-                    $_SESSION['admin_name'] = $filas['admin_name'];
-                    $_SESSION['id'] = $filas['id'];
+                    $_SESSION['username'] = $filas['username'];
+                    $_SESSION['id_user'] = $filas['id_user'];
+                    $_SESSION['rol'] = $filas['rol'];
                 } else {
                     echo "<script type='text/javascript'>
 							Swal.fire({

@@ -7,7 +7,7 @@ if(isset($_GET["id"])){
 
     $id = $_GET["id"];
 
-    $delete = $conn -> query("DELETE FROM admins WHERE id = '$id'");
+    $delete = $conn -> query("DELETE FROM users WHERE id_user = '$id'");
     $delete->execute();
 
     header('Location: show-admins.php');

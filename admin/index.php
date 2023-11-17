@@ -3,7 +3,7 @@
 
 <?php
 
-$validar = $_SESSION['admin_name'];
+$validar = $_SESSION['username'];
 
 if(!isset($validar)) {
 	echo "<script>window.location.href='".ADMINURL."includes/login.php' </script>";
@@ -21,7 +21,7 @@ $rooms->execute();
 $allRooms = $rooms->fetch(PDO::FETCH_OBJ);
 
 
-$users = $conn->query("SELECT COUNT(*) AS count_users FROM user");
+$users = $conn->query("SELECT COUNT(*) AS count_users FROM users");
 $users->execute();
 $allUsers = $users->fetch(PDO::FETCH_OBJ);
 

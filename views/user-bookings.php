@@ -14,11 +14,15 @@ if (isset($_GET['id'])) {
     if ($_SESSION['id_user'] != $id) {
         echo "<script>window.location.href='" . APPURL . "'</script>";
     }
-
-
-    //$bookings = $conn->query("SELECT users.*, booking.* FROM users JOIN booking ON users.id_user = booking.id_user WHERE users.id_user = '$id'");
-
-    $bookings = $conn->query("SELECT * FROM booking WHERE id_user = '$id'");
+    
+    $bookings = $conn->query("SELECT b.id_booking, u.username 
+                              AS user_name, b.phone_number, b.check_in, b.check_out, r.room_name, h.name 
+                              AS hotel_name, s.name AS status_name, b.payment FROM booking b 
+                              JOIN users u ON b.id_user = u.id_user 
+                              JOIN rooms r ON b.id_room = r.id_room 
+                              JOIN hotels h ON r.id_hotel = h.id_hotel 
+                              JOIN status s ON b.id_status = s.id_status 
+                              WHERE u.id_user = '$id';");
     $bookings->execute();
 
     $allBookings = $bookings->fetchAll(PDO::FETCH_OBJ);
@@ -52,11 +56,11 @@ if (isset($_GET['id'])) {
                         <th scope="row"><?php echo $book->id_booking ?></th>
                         <td><?php echo $book->check_in ?></td>
                         <td><?php echo $book->check_out ?></td>
-                        <td><?php echo $book->full_name ?></td>
+                        <td><?php echo $book->user_name ?></td>
                         <td><?php echo $book->hotel_name ?></td>
                         <td><?php echo $book->room_name ?></td>
                         <td><?php echo $book->payment ?></td>
-                        <td><?php echo $book->status ?></td>
+                        <td><?php echo $book->status_name ?></td>
                     </tr>
                 <?php } ?>
             </tbody>

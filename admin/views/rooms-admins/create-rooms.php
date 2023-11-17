@@ -3,12 +3,14 @@
 
 
 <?php
-if (!isset($_SESSION['admin_name'])) {
-	echo "<script>window.location.href= '" . ADMINURL . "admins/login-admins.php' </script>";
+$validar = $_SESSION['username'];
+
+if (!isset($validar)) {
+    echo "<script>window.location.href= '" . ADMINURL . "admins/login-admins.php' </script>";
 }
 
 
-$hotels = $conn->query("SELECT * FROM hotels");
+$hotels = $conn->query("SELECT * FROM hotels WHERE id_status = 1");
 $hotels->execute();
 
 $allHotels = $hotels->fetchAll(PDO::FETCH_OBJ);
@@ -17,7 +19,7 @@ $allHotels = $hotels->fetchAll(PDO::FETCH_OBJ);
 if (isset($_POST['submit'])) {
 
 	if (empty($_POST['name']) || empty($_POST['price'])|| empty($_POST['num_persons'])|| empty($_POST['num_beds']) || 
-		empty($_POST['size']) || empty($_POST['view']) || empty($_POST['hotel_name']) || empty($_POST['id_hotel'])) 
+		empty($_POST['size']) || empty($_POST['view']) || empty($_POST['id_hotel'])) 
 	{
 		echo "<script type='text/javascript'>
 				Swal.fire({
@@ -40,22 +42,20 @@ if (isset($_POST['submit'])) {
 		$num_beds = $_POST['num_beds'];
 		$size = $_POST['size'];
 		$view = $_POST['view'];
-		$hotel_name = $_POST['hotel_name'];
 		$id_hotel = $_POST['id_hotel'];
 
-		$insert = $conn->prepare("INSERT INTO rooms (room_name, image, price, num_persons, num_beds, size, view, id_hotel, hotel_name) 
-											  VALUES (:room_name,:image,:price,:num_persons,:num_beds,:size,:view,:id_hotel,:hotel_name)");
+		$insert = $conn->prepare("INSERT INTO rooms(room_name, image, price, num_persons, size, view, num_beds, id_hotel) 
+								VALUES (:room_name,:image,:price,:num_persons,:size,:view,:num_beds,:id_hotel)");
 
 		$insert->execute([
 			":room_name" => $name,
 			":image" => $image,
 			":price" => $price,
-			":num_persons" => $num_persons,
 			":num_beds" => $num_beds,
 			":size" => $size,
 			":view" => $view,
-			":id_hotel" => $id_hotel,
-			":hotel_name" => $hotel_name
+			":num_persons" => $num_persons,
+			":id_hotel" => $id_hotel
 		]);
 
 		if ($insert && move_uploaded_file($_FILES['image']['tmp_name'], $dir)) {
@@ -106,18 +106,10 @@ if (isset($_POST['submit'])) {
 						<input type="text" name="view" id="form2Example1" class="form-control" placeholder="view" />
 					</div>
 
-					<select name="hotel_name" class="form-control">
-						<option>Choose Hotel Name</option>
-						<?php foreach ($allHotels as $hotel): ?>
-							<option value="<?php echo $hotel -> name; ?>"><?php echo $hotel -> name; ?></option>
-						<?php endforeach; ?>
-					</select>
-					<br>
-
 					<select name="id_hotel" class="form-control">
-						<option>Choose Same Hotel Once Again</option>
+						<option>Choose Hotel</option>
 						<?php foreach ($allHotels as $hotel):  ?>
-							<option value="<?php echo $hotel -> $id_hotel; ?>"><?php echo $hotel -> name; ?></option>
+							<option value="<?php echo $hotel -> id_hotel; ?>"><?php echo $hotel -> name; ?></option> 
 						<?php endforeach; ?>
 					</select>
 					<br>

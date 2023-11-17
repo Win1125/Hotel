@@ -1,6 +1,8 @@
 <?php
 
 require_once('../fpdf/fpdf.php');
+
+
 class PDF extends FPDF
 {
     // Cabecera de página
@@ -15,7 +17,7 @@ class PDF extends FPDF
         $this->Cell(60);
 
         // Título
-        $this->Cell(70, 10, 'Tabla de usuarios ', 0, 0, 'C');
+        $this->Cell(70, 10, 'Tabla de Reservas ', 0, 0, 'C');
         // Salto de línea
 
         $this->Ln(30);
@@ -46,10 +48,17 @@ class PDF extends FPDF
     }
 }
 
-$conexion = mysqli_connect("localhost", "root", "", "r_user");
-$consulta = "SELECT user.id, user.nombre, user.correo, user.password, user.telefono,
-user.fecha, permisos.rol FROM user
-LEFT JOIN permisos ON user.rol = permisos.id";
+$conexion = mysqli_connect("localhost", "root", "", "hotel_a");
+
+$from_date = $_GET['from_date'];
+$to_date = $_GET['to_date'];
+
+$consulta = "SELECT b.id_booking, b.check_in, b.check_out, r.room_name, r.price, h.name AS hotel_name, h.location FROM booking b
+            JOIN rooms r ON b.id_room = r.id_room
+            JOIN hotels h ON r.id_hotel = h.id_hotel
+            WHERE (b.check_in BETWEEN '$from_date' AND '$to_date') or (b.check_out BETWEEN '$from_date' AND '$to_date')";
+
+
 $resultado = mysqli_query($conexion, $consulta);
 
 $pdf = new PDF();
@@ -62,12 +71,12 @@ while ($row = $resultado->fetch_assoc()) {
 
     $pdf->SetX(8);
 
-    $pdf->Cell(25, 10, $row['nombre'], 1, 0, 'C', 0);
-    $pdf->Cell(40, 10, $row['correo'], 1, 0, 'C', 0);
-    $pdf->Cell(27, 10, $row['telefono'], 1, 0, 'C', 0);
-    $pdf->Cell(27, 10, $row['password'], 1, 0, 'C', 0);
-    $pdf->Cell(40, 10, $row['fecha'], 1, 0, 'C', 0);
-    $pdf->Cell(30, 10, $row['rol'], 1, 1, 'C', 0);
+    $pdf->Cell(25, 10, $row['id_booking'], 1, 0, 'C', 0);
+    $pdf->Cell(40, 10, $row['check_in'], 1, 0, 'C', 0);
+    $pdf->Cell(27, 10, $row['check_out'], 1, 0, 'C', 0);
+    $pdf->Cell(27, 10, $row['room_name'], 1, 0, 'C', 0);
+    $pdf->Cell(40, 10, $row['price'], 1, 0, 'C', 0);
+    $pdf->Cell(30, 10, $row['hotel_name'], 1, 1, 'C', 0);
 }
 
 

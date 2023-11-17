@@ -3,6 +3,11 @@
 
 <?php
 
+$st = $conn->query(" SELECT * FROM status WHERE name in ('Confirmado', 'Pendiente', 'Finalizado')");
+$st->execute();
+
+$allStatus = $st->fetchAll(PDO::FETCH_OBJ);
+
 if (isset($_GET['id'])) {
 
 	$id = $_GET['id'];
@@ -11,13 +16,13 @@ if (isset($_GET['id'])) {
 
 		$status = $_POST['status'];
 
-		$update = $conn->prepare("UPDATE booking SET status = :status WHERE id_booking = '$id'");
+		$update = $conn->prepare("UPDATE booking SET id_status = :status WHERE id_booking = '$id'");
 
 		$update->execute([
 			":status" => $status
 		]);
 		
-		if ($status == "Finished") {
+		if ($status == "Finalizado") {
 			echo	"<script>
 						Swal.fire({
 							icon : 'info',
@@ -56,10 +61,10 @@ if (isset($_GET['id'])) {
 				<h5 class="card-title mb-5 d-inline">Update Status</h5>
 				<form method="POST" action="status-bookings.php?id=<?php echo $id ?>">
 					<select name="status" style="margin-top: 15px;" class="form-control">
-						<option>Choose Status</option>
-						<option value="Pending">Pending</option>
-						<option value="Confirmed">Confirmed</option>
-						<option value="Finished">Finished</option>
+						<option>Escoge un Estado</option>
+						<?php foreach ($allStatus as $s): ?>
+							<option value="<?php echo $s -> id_status; ?>"><?php echo $s -> name; ?></option>
+						<?php endforeach; ?>
 					</select>
 					<!-- Submit button -->
 					<button style="margin-top: 10px;" type="submit" name="submit" class="btn btn-primary  mb-4 text-center">update</button>

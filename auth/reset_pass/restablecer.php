@@ -9,7 +9,10 @@ $token = bin2hex($bytes);
 include "mail_reset.php";
 
 //Verificar si el correo existe en la base de datos
-$login = $conn->query("SELECT * FROM user WHERE email = '$email'");
+$login = $conn->query("SELECT u.id_user, u.username, u.email, u.mypassword FROM users u 
+                        JOIN user_roles ur ON u.id_user = ur.id_user 
+                        JOIN roles r ON ur.id_role = r.id_role 
+                        WHERE u.email = '$email'");
 $login->execute();
 
 if ($login->rowCount() > 0) {

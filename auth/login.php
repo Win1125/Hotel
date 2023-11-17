@@ -39,7 +39,11 @@ if (isset($_POST['submit'])) {
 
 		//Validate the email with query
 
-		$login = $conn->query("SELECT * FROM user WHERE email = '$email'");
+		$login = $conn->query("SELECT u.id_user, u.username, u.email, u.mypassword FROM users u 
+							   JOIN user_roles ur ON u.id_user = ur.id_user 
+							   JOIN roles r ON ur.id_role = r.id_role 
+							   WHERE u.email = '$email' 
+							   AND r.role_name = 'Cliente';");
 		$login->execute();
 
 		$fetch = $login->fetch(PDO::FETCH_ASSOC);

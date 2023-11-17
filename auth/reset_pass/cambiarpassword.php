@@ -11,7 +11,7 @@ if ($p1 == $p2) {
 
     $p1 = password_hash($p1, PASSWORD_DEFAULT);
 
-    $update = $conn->prepare("UPDATE user SET mypassword = :mypassword WHERE email='$email'");
+    $update = $conn->prepare("UPDATE users SET mypassword = :mypassword WHERE email='$email'");
 
     $update->execute([
         ":mypassword" => $p1
