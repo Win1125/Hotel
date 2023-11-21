@@ -34,35 +34,22 @@ if (isset($_POST['submit'])) {
 
 		$fetch = $login->fetch(PDO::FETCH_ASSOC);
 
-		/*foreach ($fetch as $user) {
-			$email_tabla = $user['email'];
-		}
+		$username = $_POST['username'];
+		$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+		$email = $_POST['email'];
 
-		if ($email_tabla == $email) {
-			echo "<script type='text/javascript'>
-				Swal.fire({
-					title: 'Upps!',
-					text: 'Este correo ya existe!',
-					type: 'error',
-					confirmButtonText: 'Aceptar'
-				});
-			</script>";
-		} else {*/
+		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-			$username = $_POST['username'];
-			$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-			$email = $_POST['email'];
+			$insert = $conn->prepare("CALL InsertUserWithRole(:username, :email, :password, 'Cliente')");
 
-			if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			$insert->execute([
+				":username" => $username,
+				":email" => $email,
+				":password" => $password
+			]);
 
-				$validar = $_SESSION['username'];
-
-if (!isset($validar)) {
-    echo "<script>window.location.href= '" . ADMINURL . "admins/login-admins.php' </script>";
-}
-
-				if ($insert) {
-					echo	"<script>
+			if ($insert) {
+				echo	"<script>
 						Swal.fire({
 							icon : 'success',
 							title: 'Registro Exitoso',
@@ -74,9 +61,9 @@ if (!isset($validar)) {
 							}
 						});
 					</script>";
-				}
-			} else {
-				echo "<script>
+			}
+		} else {
+			echo "<script>
 						Swal.fire({
 							icon : 'warning',
 							title: 'Ups!',
@@ -84,7 +71,7 @@ if (!isset($validar)) {
 							type: 'error'
 						});
 					</script>";
-			}
+		}
 		//}
 	}
 }
@@ -108,17 +95,17 @@ if (!isset($validar)) {
 	<div class="container">
 		<div class="row justify-content-middle" style="margin-left: 397px;">
 			<div class="col-md-6 mt-5">
-				<form action="register.php" method="post" class="appointment-form" style="margin-top: -568px;" >
+				<form action="register.php" method="post" class="appointment-form" style="margin-top: -568px;">
 					<h3 class="mb-3">Register</h3>
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<input type="text" class="form-control" name="username" placeholder="Username" value="<?php if(isset($username)) echo $username ?>">
+								<input type="text" class="form-control" name="username" placeholder="Username" value="<?php if (isset($username)) echo $username ?>">
 							</div>
 						</div>
 						<div class="col-md-12">
 							<div class="form-group">
-								<input type="text" pattern="[a-zA-Z0-9$@.-]{7,100}" class="form-control" name="email" placeholder="Email" value="<?php if(isset($email)) echo $email ?>">
+								<input type="text" pattern="[a-zA-Z0-9$@.-]{7,100}" class="form-control" name="email" placeholder="Email" value="<?php if (isset($email)) echo $email ?>">
 							</div>
 						</div>
 						<div class="col-md-12">

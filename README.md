@@ -7,6 +7,10 @@ Este es un sistema de reservas de habitaciones de hotel desarrollado en PHP. Per
 
 - https://udistritaleduco.sharepoint.com/:v:/s/AnlisisSocialColombiano302/EY5BVlKKH4tKhDFIGgydQWcBHdhZliI4sn7LhOYl2R1EFA?e=VrHTzQ
 
+## Video Explicación Entrega Final (Apps para internet)
+
+- https://udistritaleduco.sharepoint.com/:v:/s/AnlisisSocialColombiano302/EdpVwiMorzpFjg30yCeqBGIBw-Zm8YYA5OIqYQASoLDTsw?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1FbWFpbCIsInJlZmVycmFsQXBwUGxhdGZvcm0iOiJXZWIiLCJyZWZlcnJhbE1vZGUiOiJ2aWV3In19&e=elQR2Q
+
 ## Características
 
 - Registro de usuarios: Los usuarios pueden registrarse en el sistema.

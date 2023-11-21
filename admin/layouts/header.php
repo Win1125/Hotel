@@ -28,15 +28,6 @@ define("ADMINURL", "http://localhost/Hotel/admin/");
 	<link rel="stylesheet" href="../css/es.css">
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/resp/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="../../resources/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="../../resources/css/animate.css">
-    <link rel="stylesheet" href="../../resources/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="../../resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="../../resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="../../resources/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="../../resources/css/jquery.timepicker.css">
-    <link rel="stylesheet" href="../../resources/css/flaticon.css">
-    <link rel="stylesheet" href="../../resources/css/style.css">
 </head>
 
 <body>
@@ -56,20 +47,22 @@ define("ADMINURL", "http://localhost/Hotel/admin/");
 									<span class="sr-only">(current)</span>
 								</a>
 							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="<?php echo ADMINURL; ?>views/admins/show-admins.php" style="margin-left: 20px;">Admins</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="<?php echo ADMINURL; ?>views/hotels-admins/show-hotels.php" style="margin-left: 20px;">Hotels</a>
-							</li>
+							<?php if ($_SESSION['rol'] == 'Administrador') : ?>
+								<li class="nav-item">
+									<a class="nav-link" href="<?php echo ADMINURL; ?>views/admins/show-admins.php" style="margin-left: 20px;">Admins</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="<?php echo ADMINURL; ?>views/users-admins/show-users.php" style="margin-left: 20px;">Users</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="<?php echo ADMINURL; ?>views/hotels-admins/show-hotels.php" style="margin-left: 20px;">Hotels</a>
+								</li>
+							<?php endif; ?>
 							<li class="nav-item">
 								<a class="nav-link" href="<?php echo ADMINURL; ?>views/rooms-admins/show-rooms.php" style="margin-left: 20px;">Rooms</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="<?php echo ADMINURL; ?>views/bookings-admins/show-bookings.php" style="margin-left: 20px;">Bookings</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="<?php echo ADMINURL; ?>views/users-admins/show-users.php" style="margin-left: 20px;">Users</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="<?php echo ADMINURL; ?>views/contacts-admins/show-contacts.php" style="margin-left: 20px;">Contacts</a>

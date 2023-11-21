@@ -23,12 +23,12 @@ class PDF extends FPDF
         $this->Ln(30);
         $this->SetFont('Arial', 'B', 10);
         $this->SetX(8);
-        $this->Cell(25, 10, 'Nombre', 1, 0, 'C', 0);
-        $this->Cell(40, 10, 'Correo', 1, 0, 'C', 0,);
-        $this->Cell(27, 10, 'Telefono', 1, 0, 'C', 0);
-        $this->Cell(27, 10, 'Password', 1, 0, 'C', 0);
-        $this->Cell(40, 10, 'Fecha', 1, 0, 'C', 0);
-        $this->Cell(30, 10, 'Rol', 1, 1, 'C', 0);
+        $this->Cell(25, 10, '# Booking', 1, 0, 'C', 0);
+        $this->Cell(40, 10, 'Ingreso', 1, 0, 'C', 0,);
+        $this->Cell(27, 10, 'Salida', 1, 0, 'C', 0);
+        $this->Cell(27, 10, 'Habitacion', 1, 0, 'C', 0);
+        $this->Cell(40, 10, 'Precio', 1, 0, 'C', 0);
+        $this->Cell(30, 10, 'Hotel', 1, 1, 'C', 0);
     }
 
     // Pie de página

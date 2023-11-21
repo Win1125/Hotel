@@ -142,7 +142,7 @@ if (isset($_POST['send'])) {
 
 		//Validate the email with query
 
-		$contact = $conn->prepare("INSERT INTO contact (name, email, subject, message) VALUES (:name, :email, :subject, :message)");
+		$contact = $conn->prepare("INSERT INTO contacts (name, email, subject, message) VALUES (:name, :email, :subject, :message)");
 
 		$contact->execute([
 			":name" => $name,

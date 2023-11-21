@@ -21,7 +21,7 @@ function acceso_user()
     $validar = $_SESSION['username'];
 
     if (!isset($validar)) {
-        echo "<script>window.location.href= '" . ADMINURL . "admins/login-admins.php' </script>";
+        echo "<script>window.location.href= '" . ADMINURL . "includes/login.php' </script>";
     }
 
     if (isset($_POST['submit'])) {
