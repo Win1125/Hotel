@@ -1,5 +1,4 @@
 # VacationRental
-# Hotel Reservation System
 
 Este es un sistema de reservas de habitaciones de hotel desarrollado en PHP. Permite a los clientes realizar reservas de habitaciones de hotel y a los administradores gestionar esas reservas.
 
